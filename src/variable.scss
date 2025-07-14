@@ -49,14 +49,20 @@ html #{utils.with-print('body.obsidian-app')} {
 @include setup-hsl('light', 35, 32%, 58%);
 @include setup-hsl('dark', 207, 32%, 58%);
 
+// Alt accent color setup
+@mixin setup-alt-hsl($theme, $h, $s, $l) {
+  #{utils.with-print('body.color-use-custom.theme-#{$theme}.css-settings-manager')} {
+    --accent-alt-h: var(--setting-accent-alt-h-#{$theme}, #{$h}) !important;
+    --accent-alt-s: var(--setting-accent-alt-s-#{$theme}, #{$s}) !important;
+    --accent-alt-l: var(--setting-accent-alt-l-#{$theme}, #{$l}) !important;
+  }
+}
+
+@include setup-alt-hsl('light', 95, 32%, 58%);
+@include setup-alt-hsl('dark', 267, 32%, 58%);
+
 #{utils.with-print('.theme-light')} {
-  // @include var-color('red', 210, 75, 75);
-  // @include var-color('orange', 228, 163, 12);
-  // @include var-color('yellow', 226, 178, 18);
-  // @include var-color('green', 94, 179, 77);
-  // @include var-color('cyan', 54, 181, 134);
-  // @include var-color('blue', 24, 168, 220);
-  // @include var-color('purple', 128, 120, 186);
+  // Extract RGB values from the HSL colors for opacity support
   @include var-color('red', hsl(0, 45%, 53%));
   @include var-color('orange', hsl(32, 70%, 50%));
   @include var-color('yellow', hsl(46, 96%, 40%));
@@ -64,23 +70,27 @@ html #{utils.with-print('body.obsidian-app')} {
   @include var-color('cyan', hsl(156, 75%, 33%));
   @include var-color('blue', hsl(193, 94%, 38%));
   @include var-color('purple', hsl(260, 30%, 57%));
+  @include var-color('pink', hsl(320, 75%, 65%));
 
   --background-primary-hsl: var(--accent-h), calc(var(--accent-s) - 12%), 97%;
-  --background-primary: hsl(var(--background-primary-hsl));
+  --background-primary: var(--setting-background-primary, hsl(var(--background-primary-hsl)));
   --background-secondary-hsl: calc(var(--accent-h) - 18), calc(var(--accent-s) - 4%), calc(100% - (100% - var(--accent-l)) / 8);
-  --background-secondary: hsl(var(--background-secondary-hsl));
-  --background-modifier-hover: hsl(var(--accent-h), calc(var(--accent-s) * 1.2), min(var(--accent-l) * 2, 90%));
+  --background-secondary: var(--setting-background-secondary, hsl(var(--background-secondary-hsl)));
+  --background-modifier-hover: var(--setting-background-modifier-hover, hsl(var(--accent-h), calc(var(--accent-s) * 1.2), min(var(--accent-l) * 2, 90%)));
   --accent-active: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 4%));
   --accent-inactive: hsl(var(--accent-h), calc(var(--accent-s) - 4%), calc(var(--accent-l) + 24%));
-  --text-on-accent: #fafafa !important;
-  --frame-background-color: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 32%));
-  --frame-outline-color: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 23.5%));
-  --frame-muted-color: hsl(var(--accent-h), calc(var(--accent-s) - 20%), calc(var(--accent-l) - 10%));
+  --text-on-accent: var(--setting-text-on-accent, #fafafa) !important;
+  --text-muted: var(--setting-text-muted, hsla(var(--accent-h), 50%, 30%, 70%));
+  --text-faint: var(--setting-text-faint, #aaa);
+  --frame-background-color: var(--setting-frame-background, hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 32%)));
+  --frame-outline-color: var(--setting-frame-outline, hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 23.5%)));
+  --frame-muted-color: var(--setting-frame-muted, hsl(var(--accent-h), calc(var(--accent-s) - 20%), calc(var(--accent-l) - 10%)));
   --md-container-bg: var(--setting-md-container-bg, hsla(calc(var(--accent-h) + 8), calc(var(--accent-s) / 1.2), calc(100% - (100% - var(--accent-l)) / 6), 70%));
   --color-opacity: 1;
 }
 
 #{utils.with-print('.theme-dark')} {
+  // Extract RGB values from the HSL colors for opacity support
   @include var-color('red', hsl(0, 72%, 80%));
   @include var-color('orange', hsl(20, 70%, 80%));
   @include var-color('yellow', hsl(36, 70%, 78%));
@@ -88,19 +98,21 @@ html #{utils.with-print('body.obsidian-app')} {
   @include var-color('cyan', hsl(178, 60%, 77%));
   @include var-color('blue', hsl(210, 100%, 78%));
   @include var-color('purple', hsl(247, 90%, 90%));
+  @include var-color('pink', hsl(320, 75%, 80%));
 
-  --background-primary: hsl(var(--background-primary-hsl));
+  --background-primary: var(--setting-background-primary, hsl(var(--background-primary-hsl)));
   --background-primary-hsl: var(--accent-h), 5%, 5%;
-  --background-secondary: hsl(var(--background-secondary-hsl));
+  --background-secondary: var(--setting-background-secondary, hsl(var(--background-secondary-hsl)));
   --background-secondary-hsl: calc(var(--accent-h) + 8), calc(var(--accent-s) / 6), calc(var(--accent-l) / 5);
-  --background-modifier-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) / 3));
+  --background-modifier-hover: var(--setting-background-modifier-hover, hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) / 3)));
   --accent-active: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 16%));
   --accent-inactive: hsl(var(--accent-h), calc(var(--accent-s) + 24%), calc(var(--accent-l) - 32%));
-  --frame-background-color: hsl(var(--accent-h), 12%, 16%);
-  --frame-outline-color: hsl(calc(var(--accent-h) - 24), calc(var(--accent-s) + 6%), 24%);
-  --frame-muted-color: hsl(var(--accent-h), calc(var(--accent-s) - 20%), calc(var(--accent-l) + 10%));
-  --text-normal: hsla(var(--accent-h), 50%, 94%, 75%);
-  --text-on-accent: #eaeaea !important;
+  --frame-background-color: var(--setting-frame-background, hsl(var(--accent-h), 12%, 16%));
+  --frame-outline-color: var(--setting-frame-outline, hsl(calc(var(--accent-h) - 24), calc(var(--accent-s) + 6%), 24%));
+  --frame-muted-color: var(--setting-frame-muted, hsl(var(--accent-h), calc(var(--accent-s) - 20%), calc(var(--accent-l) + 10%)));
+  --text-on-accent: var(--setting-text-on-accent, #eaeaea) !important;
+  --text-muted: var(--setting-text-muted, hsla(var(--accent-h), 50%, 94%, 50%));
+  --text-faint: var(--setting-text-faint, hsla(var(--accent-h), 50%, 94%, 25%));
   --md-container-bg: var(--setting-md-container-bg, hsl(calc(var(--accent-h) - 4), 18%, 9%));
   --color-opacity: 0.85;
 }
@@ -120,3 +132,54 @@ html #{utils.with-print('body.obsidian-app')} {
 
 @include setup-custom('light', 60, -12%, 4%, 60, -12%, 20%);
 @include setup-custom('dark', 60, -12%, -12%, 60, -12%, -28%);
+
+// Alt accent color implementation
+@mixin setup-alt-accent($theme) {
+  #{utils.with-print(".theme-#{$theme}.color-use-custom.color-active-alt-#{$theme}")} {
+    --accent-active: hsl(var(--accent-alt-h), var(--accent-alt-s), var(--accent-alt-l));
+    --accent-inactive: hsl(var(--accent-alt-h), calc(var(--accent-alt-s) - 4%), calc(var(--accent-alt-l) + 24%));
+    
+    // Update frame colors to use alt accent
+    --frame-background-color: var(--setting-frame-background, hsl(var(--accent-alt-h), var(--accent-alt-s), calc(var(--accent-alt-l) + 32%)));
+    --frame-outline-color: var(--setting-frame-outline, hsl(var(--accent-alt-h), var(--accent-alt-s), calc(var(--accent-alt-l) + 23.5%)));
+    --frame-muted-color: var(--setting-frame-muted, hsl(var(--accent-alt-h), calc(var(--accent-alt-s) - 20%), calc(var(--accent-alt-l) - 10%)));
+    
+    // Update background colors to use alt accent
+    --background-primary-hsl: var(--accent-alt-h), calc(var(--accent-alt-s) - 12%), 97%;
+    --background-secondary-hsl: calc(var(--accent-alt-h) - 18), calc(var(--accent-alt-s) - 4%), calc(100% - (100% - var(--accent-alt-l)) / 8);
+    --background-modifier-hover: var(--setting-background-modifier-hover, hsl(var(--accent-alt-h), calc(var(--accent-alt-s) * 1.2), min(var(--accent-alt-l) * 2, 90%)));
+  }
+
+  #{utils.with-print(".theme-#{$theme}.color-use-custom.color-active-alt-#{$theme}")} {
+    @if $theme == 'dark' {
+      --accent-active: hsl(var(--accent-alt-h), var(--accent-alt-s), calc(var(--accent-alt-l) - 16%));
+      --accent-inactive: hsl(var(--accent-alt-h), calc(var(--accent-alt-s) + 24%), calc(var(--accent-alt-l) - 32%));
+      
+      // Update frame colors for dark mode
+      --frame-background-color: var(--setting-frame-background, hsl(var(--accent-alt-h), 12%, 16%));
+      --frame-outline-color: var(--setting-frame-outline, hsl(calc(var(--accent-alt-h) - 24), calc(var(--accent-alt-s) + 6%), 24%));
+      --frame-muted-color: var(--setting-frame-muted, hsl(var(--accent-alt-h), calc(var(--accent-alt-s) - 20%), calc(var(--accent-alt-l) + 10%)));
+      
+      // Update background colors for dark mode  
+      --background-primary-hsl: var(--accent-alt-h), 5%, 5%;
+      --background-secondary-hsl: calc(var(--accent-alt-h) + 8), calc(var(--accent-alt-s) / 6), calc(var(--accent-alt-l) / 5);
+      --background-modifier-hover: var(--setting-background-modifier-hover, hsl(var(--accent-alt-h), var(--accent-alt-s), calc(var(--accent-alt-l) / 3)));
+    }
+  }
+}
+
+@include setup-alt-accent('light');
+@include setup-alt-accent('dark');
+
+// Ensure background overrides work properly by setting primary/secondary backgrounds to use the HSL values
+#{utils.with-print('body.css-settings-manager')} {
+  .theme-light {
+    --background-primary: var(--setting-background-primary, hsl(var(--background-primary-hsl)));
+    --background-secondary: var(--setting-background-secondary, hsl(var(--background-secondary-hsl)));
+  }
+
+  .theme-dark {
+    --background-primary: var(--setting-background-primary, hsl(var(--background-primary-hsl)));
+    --background-secondary: var(--setting-background-secondary, hsl(var(--background-secondary-hsl)));
+  }
+}

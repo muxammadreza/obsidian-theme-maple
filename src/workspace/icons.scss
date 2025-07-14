@@ -32,23 +32,27 @@ svg.lucide-layout-dashboard rect {
 $value in $svg-has-class {
   svg#{$key} {
     -webkit-mask-image: url('data:image/svg+xml;utf8,#{$value}');
+    mask-image: url('data:image/svg+xml;utf8,#{$value}');
   }
 }
 
 #{$folder-class} svg.right-triangle {
   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42"><path d="M24.833 12.5H40.25a3.75 3.75 0 0 1 3.745 3.55l.005.2v19a3.75 3.75 0 0 1-3.55 3.745l-.2.005H7.75a3.75 3.75 0 0 1-3.745-3.55L4 35.25V18.999L17.804 19l.226-.007a3.75 3.75 0 0 0 2.547-1.219l.147-.172 4.109-5.102zM17.061 9c.832 0 1.639.277 2.294.784l.175.144 2.444 2.138-3.197 3.968-.094.105c-.2.197-.46.322-.739.353l-.14.008L4 16.499V12.75a3.75 3.75 0 0 1 3.55-3.745L7.75 9h9.31z" fill="currentColor"/></svg>');
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42"><path d="M24.833 12.5H40.25a3.75 3.75 0 0 1 3.745 3.55l.005.2v19a3.75 3.75 0 0 1-3.55 3.745l-.2.005H7.75a3.75 3.75 0 0 1-3.745-3.55L4 35.25V18.999L17.804 19l.226-.007a3.75 3.75 0 0 0 2.547-1.219l.147-.172 4.109-5.102zM17.061 9c.832 0 1.639.277 2.294.784l.175.144 2.444 2.138-3.197 3.968-.094.105c-.2.197-.46.322-.739.353l-.14.008L4 16.499V12.75a3.75 3.75 0 0 1 3.55-3.745L7.75 9h9.31z" fill="currentColor"/></svg>');
 }
 
 @each $key,
 $value in $svg-no-class {
   #{$key} svg {
     -webkit-mask-image: url('data:image/svg+xml;utf8,#{$value}');
+    mask-image: url('data:image/svg+xml;utf8,#{$value}');
   }
 }
 
 :is(:is(#{map-keys($svg-no-class)},#{$folder-class}) svg, svg:is(#{map-keys($svg-has-class)})) {
   background-color: currentColor;
   -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 
   path {
     display: none;
@@ -66,12 +70,14 @@ $no-svg: (
 $value in $no-svg {
   #{$key} {
     -webkit-mask-image: url('data:image/svg+xml;utf8,#{$value}');
+    mask-image: url('data:image/svg+xml;utf8,#{$value}');
   }
 }
 
 #{utils.with-no-plugin(".explorer-icon")} {
   .nav-file-title:is(.is-unsupported)::before {
     -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><path d="M10 10.3c.2-.4.5-.8.9-1a2.1 2.1 0 0 1 2.6.4c.3.4.5.8.5 1.3c0 1.3-2 2-2 2m0 4h.01" /></g></svg>');
+    mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><path d="M10 10.3c.2-.4.5-.8.9-1a2.1 2.1 0 0 1 2.6.4c.3.4.5.8.5 1.3c0 1.3-2 2-2 2m0 4h.01" /></g></svg>');
   }
 }
 
@@ -99,6 +105,47 @@ $file-icon: (
   #{utils.with-no-plugin(".explorer-icon")} {
     .nav-file-title:is(#{$arr})::before {
       -webkit-mask-image: url('data:image/svg+xml;utf8,#{$svg}');
+      mask-image: url('data:image/svg+xml;utf8,#{$svg}');
     }
+  }
+}
+
+// File icon variants
+$file-icons: (
+  'file-icon-default': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M14 2v6h6m-4 5H8m8 4H8m2-8H8"/></g></svg>',
+  'file-icon-modern': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M14 2v6h6"/><circle cx="10" cy="12" r="2"/><path d="m14 16 2-2-2-2"/></g></svg>',
+  'file-icon-minimal': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M14 2v6h6"/></g></svg>',
+  'file-icon-classic': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M9 6h6m-6 4h6m-2 4h2"/></g></svg>',
+  'file-icon-page': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 2v4l-1.5-1.5L5 6V2"/><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 18h8m-8-4h8m-8-4h5"/></g></svg>',
+  'file-icon-filled': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM18 20H6V4h7v5h5v11z"/></svg>',
+  'file-icon-solid': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M14 2l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8zm-1 1H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5L13 3z"/></svg>',
+  'file-icon-paper': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8l-6-6H6Z"/></svg>',
+  'file-icon-note': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>'
+);
+
+// Folder icon variants  
+$folder-icons: (
+  'folder-icon-default': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M216 72h-85.3l-27.8-20.8a15.6 15.6 0 0 0-9.6-3.2H40a16 16 0 0 0-16 16v136a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V88a16 16 0 0 0-16-16ZM93.3 96H40V64h53.3l21.4 16l-21.4 16M216 200H40v-88h53.3a15.6 15.6 0 0 0 9.6-3.2L130.7 88H216Z"/></svg>',
+  'folder-icon-modern': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><circle cx="12" cy="13" r="2"/></g></svg>',
+  'folder-icon-rounded': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></g></svg>',
+  'folder-icon-filled': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z"/></svg>',
+  'folder-icon-solid': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6c0-1.1.9-2 2-2h5l2 2h9c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6z"/></svg>',
+  'folder-icon-3d': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M20 6h-8l-1.41-1.41C10.21 4.21 9.7 4 9.17 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/><path fill="currentColor" opacity="0.6" d="M6 10h12v6H6z"/></svg>'
+);
+
+// Apply file icon variants
+@each $class, $icon in $file-icons {
+  body.#{$class} .nav-file-title::before {
+    -webkit-mask-image: url('data:image/svg+xml;utf8,#{$icon}');
+    mask-image: url('data:image/svg+xml;utf8,#{$icon}');
+    background-color: var(--file-color) !important;
+  }
+}
+
+// Apply folder icon variants
+@each $class, $icon in $folder-icons {
+  body.#{$class} .workspace-leaf-content[data-type="file-explorer"] .nav-files-container svg.right-triangle {
+    -webkit-mask-image: url('data:image/svg+xml;utf8,#{$icon}');
+    mask-image: url('data:image/svg+xml;utf8,#{$icon}');
   }
 }

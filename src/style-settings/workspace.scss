@@ -104,6 +104,64 @@ settings:
         opacity: false
         default-light: rgb(245, 180, 0)
         default-dark: rgb(245, 180, 0)
+        hidden: "!explorer-icon"
+    -
+        id: setting-color-files
+        title: File Icon Color
+        title.zh: 文件图标颜色
+        type: variable-themed-color
+        format: hex
+        default-light: '#287BFF'
+        default-dark: '#78B1FF'
+        hidden: "!explorer-icon"
+    -
+        id: explorer-folder-icon
+        title: Folder Icon Style
+        title.zh: 文件夹图标样式
+        type: class-select
+        allowEmpty: false
+        default: folder-icon-default
+        hidden: "!explorer-icon"
+        options:
+            -   label: Default Folder
+                value: folder-icon-default
+            -   label: Modern Folder
+                value: folder-icon-modern
+            -   label: Rounded Folder
+                value: folder-icon-rounded
+            -   label: Filled Folder
+                value: folder-icon-filled
+            -   label: Solid Folder
+                value: folder-icon-solid
+            -   label: 3D Folder
+                value: folder-icon-3d
+    -
+        id: explorer-file-icon
+        title: File Icon Style
+        title.zh: 文件图标样式
+        type: class-select
+        allowEmpty: false
+        default: file-icon-default
+        hidden: "!explorer-icon"
+        options:
+            -   label: Default Document
+                value: file-icon-default
+            -   label: Modern Document
+                value: file-icon-modern
+            -   label: Minimal Document
+                value: file-icon-minimal
+            -   label: Classic Document
+                value: file-icon-classic
+            -   label: Page Document
+                value: file-icon-page
+            -   label: Filled Document
+                value: file-icon-filled
+            -   label: Solid Document
+                value: file-icon-solid
+            -   label: Paper Document
+                value: file-icon-paper
+            -   label: Note Document
+                value: file-icon-note
     -
         id: outline-panel
         title: Outline Panel
@@ -268,8 +326,10 @@ settings:
         default: true
     -
         id: setting-message-bg
-        title: Background Color
-        title.zh: 背景色
+        title: Tooltip Background Color
+        description: Background color for tooltips and notices
+        title.zh: 气泡提示框背景色
+        description.zh: 气泡提示框和通知的背景颜色
         type: variable-themed-color
         format: hsl-values
         opacity: false
@@ -277,10 +337,12 @@ settings:
         default-dark: '#'
     -
         id: setting-message-fg
-        title: Foreground Color
-        title.zh: 文字色
+        title: Tooltip Text Color
+        description: Text color for tooltips and notices
+        title.zh: 气泡提示框文字色
+        description.zh: 气泡提示框和通知的文字颜色
         type: variable-themed-color
-        format: rgb-values
+        format: hex
         opacity: false
         default-light: '#'
         default-dark: '#'

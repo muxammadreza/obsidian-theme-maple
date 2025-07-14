@@ -90,6 +90,48 @@ settings:
         max: 100
         step: 1
     -
+        id: color-accent-alt-light
+        title: Alt Accent Color
+        title.zh: 备用高亮颜色
+        type: heading
+        collapsed: true
+        level: 3
+    -
+        id: setting-accent-alt-h-light
+        title: Alt Accent Color Hue
+        description: H(ue) of HSL for alternative accent color
+        title.zh: 备用高亮颜色色调
+        description.zh: HSL 中的 H
+        type: variable-number-slider
+        default: 95
+        min: 0
+        max: 360
+        step: 5
+    -
+        id: setting-accent-alt-s-light
+        title: Alt Accent Color Saturation
+        description: S(aturation) of HSL for alternative accent color
+        title.zh: 备用高亮颜色饱和度
+        description.zh: HSL 中的 S
+        type: variable-number-slider
+        default: 32
+        format: '%'
+        min: 0
+        max: 100
+        step: 1
+    -
+        id: setting-accent-alt-l-light
+        title: Alt Accent Color Lightness
+        description: L(ight) of HSL for alternative accent color
+        title.zh: 备用高亮颜色亮度
+        description.zh: HSL 中的 L
+        type: variable-number-slider
+        default: 58
+        format: '%'
+        min: 0
+        max: 100
+        step: 1
+    -
         id: color-accent-dark
         title: Dark Mode
         title.zh: 暗色模式
@@ -158,5 +200,133 @@ settings:
         min: 0
         max: 100
         step: 1
+    -
+        id: color-accent-alt-dark
+        title: Alt Accent Color
+        title.zh: 备用高亮颜色
+        type: heading
+        collapsed: true
+        level: 3
+    -
+        id: setting-accent-alt-h-dark
+        title: Alt Accent Color Hue
+        description: H(ue) of HSL for alternative accent color
+        title.zh: 备用高亮颜色色调
+        description.zh: HSL 中的 H
+        type: variable-number-slider
+        default: 267
+        min: 0
+        max: 360
+        step: 5
+    -
+        id: setting-accent-alt-s-dark
+        title: Alt Accent Color Saturation
+        description: S(aturation) of HSL for alternative accent color
+        title.zh: 备用高亮颜色饱和度
+        description.zh: HSL 中的 S
+        type: variable-number-slider
+        default: 32
+        format: '%'
+        min: 0
+        max: 100
+        step: 1
+    -
+        id: setting-accent-alt-l-dark
+        title: Alt Accent Color Lightness
+        description: L(ight) of HSL for alternative accent color
+        title.zh: 备用高亮颜色亮度
+        description.zh: HSL 中的 L
+        type: variable-number-slider
+        default: 58
+        format: '%'
+        min: 0
+        max: 100
+        step: 1
+    -
+        id: background-colors
+        title: Background Colors
+        title.zh: 背景颜色
+        type: heading
+        collapsed: true
+        level: 2
+    -
+        id: setting-background-primary
+        title: Primary Background
+        title.zh: 主背景色
+        type: variable-themed-color
+        format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: setting-background-secondary
+        title: Secondary Background
+        title.zh: 次要背景色
+        type: variable-themed-color
+        format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: setting-background-modifier-hover
+        title: Hover Background
+        title.zh: 悬停背景色
+        type: variable-themed-color
+        format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: setting-frame-background
+        title: Frame Background
+        title.zh: 框架背景色
+        type: variable-themed-color
+        format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: setting-frame-outline
+        title: Frame Outline
+        title.zh: 框架边框色
+        type: variable-themed-color
+        format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: setting-frame-muted
+        title: Frame Muted Color
+        title.zh: 框架静音色
+        type: variable-themed-color
+        format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: text-colors
+        title: Text Colors
+        title.zh: 文字颜色
+        type: heading
+        collapsed: true
+        level: 2
+    -
+        id: setting-text-on-accent
+        title: Text on Accent
+        title.zh: 高亮背景上的文字
+        type: variable-themed-color
+        format: hex
+        default-light: '#fafafa'
+        default-dark: '#eaeaea'
+    -
+        id: setting-text-muted
+        title: Muted Text
+        title.zh: 静音文字
+        type: variable-themed-color
+        format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: setting-text-faint
+        title: Faint Text
+        title.zh: 微弱文字
+        type: variable-themed-color
+        format: hex
+        default-light: '#aaaaaa'
+        default-dark: '#'
     -
 */

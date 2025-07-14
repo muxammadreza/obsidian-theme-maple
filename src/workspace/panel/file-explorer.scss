@@ -5,6 +5,8 @@ body {
   --folder-color-rgb: 245, 180, 0;
   --folder-color: rgb(var(--setting-color-dirs, var(--folder-color-rgb)));
   --folder-hover-color: rgba(var(--setting-color-dirs, var(--folder-color-rgb)), 0.24);
+  --file-color-rgb: var(--setting-color-files, #287BFF);
+  --file-color: var(--file-color-rgb);
   --nav-item-size: calc(var(--size-4-4) * 0.9);
   --line-height-tight: 1.6;
   --nav-indentation-guide-color: hsla(var(--accent-h), 20%, 50%, 0.2);
@@ -93,7 +95,7 @@ body.theme-dark.explorer-icon .is-active .nav-file-tag {
           opacity: 0.8;
           flex-shrink: 0;
           translate: calc(2px - var(--size-4-5)) 25%;
-          background-color: var(--accent-active);
+          background-color: var(--file-color);
           // add icon in icons.scss
         }
 
@@ -163,5 +165,25 @@ body.theme-dark.explorer-icon .is-active .nav-file-tag {
 
 body.explorer-title-wrap :is(.nav-file-title-content, .nav-folder-title-content) {
   overflow: visible;
-  white-space: pre-wrap;
+  white-space: normal;
+  word-break: break-word;
+}
+
+// File icon color application
+#{utils.with-no-plugin('.explorer-icon')} {
+  .nav-file-title::before {
+    color: var(--file-color);
+  }
+}
+
+// File icon color customization
+#{utils.with-no-plugin(".explorer-icon")} .nav-file-title::before {
+  background-color: var(--file-color, currentColor);
+}
+
+// Apply file color when set
+body:has([data-setting="file-color"]) {
+  #{utils.with-no-plugin(".explorer-icon")} .nav-file-title::before {
+    background-color: var(--file-color);
+  }
 }
