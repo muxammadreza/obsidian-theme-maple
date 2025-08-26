@@ -179,6 +179,7 @@ jobs:
         body_path: release_notes.md
         draft: false
         prerelease: true
+        target_commitish: ${{ github.sha }}
         files: |
           manifest.json
           theme.css
