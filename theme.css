@@ -6193,56 +6193,45 @@ body.scrollbar-hide :not([style="overflow-x: auto;"])::-webkit-scrollbar {
   display: none !important;
 }
 
-.is-popout-window,
-.workspace-leaf-content[data-type*=webview],
-.workspace-leaf-content iframe,
-iframe {
+.is-popout-window .workspace-leaf-content .view-content,
+.workspace-leaf-content[data-type*=webview] .view-content {
   color: var(--text-normal) !important;
   -webkit-text-fill-color: var(--text-normal) !important;
 }
-.is-popout-window *, .is-popout-window *::before, .is-popout-window *::after,
-.workspace-leaf-content[data-type*=webview] *,
-.workspace-leaf-content[data-type*=webview] *::before,
-.workspace-leaf-content[data-type*=webview] *::after,
-.workspace-leaf-content iframe *,
-.workspace-leaf-content iframe *::before,
-.workspace-leaf-content iframe *::after,
-iframe *,
-iframe *::before,
-iframe *::after {
+.is-popout-window .workspace-leaf-content .view-content *:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]), .is-popout-window .workspace-leaf-content .view-content *::before:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]), .is-popout-window .workspace-leaf-content .view-content *::after:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]),
+.workspace-leaf-content[data-type*=webview] .view-content *:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]),
+.workspace-leaf-content[data-type*=webview] .view-content *::before:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]),
+.workspace-leaf-content[data-type*=webview] .view-content *::after:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]) {
   color: inherit !important;
   -webkit-text-fill-color: inherit !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
-.is-popout-window textarea, .is-popout-window input, .is-popout-window select, .is-popout-window button, .is-popout-window div, .is-popout-window span, .is-popout-window p, .is-popout-window a,
-.workspace-leaf-content[data-type*=webview] textarea,
-.workspace-leaf-content[data-type*=webview] input,
-.workspace-leaf-content[data-type*=webview] select,
-.workspace-leaf-content[data-type*=webview] button,
-.workspace-leaf-content[data-type*=webview] div,
-.workspace-leaf-content[data-type*=webview] span,
-.workspace-leaf-content[data-type*=webview] p,
-.workspace-leaf-content[data-type*=webview] a,
-.workspace-leaf-content iframe textarea,
-.workspace-leaf-content iframe input,
-.workspace-leaf-content iframe select,
-.workspace-leaf-content iframe button,
-.workspace-leaf-content iframe div,
-.workspace-leaf-content iframe span,
-.workspace-leaf-content iframe p,
-.workspace-leaf-content iframe a,
-iframe textarea,
-iframe input,
-iframe select,
-iframe button,
-iframe div,
-iframe span,
-iframe p,
-iframe a {
+.is-popout-window .workspace-leaf-content .view-content textarea:not([class*=address]):not([class*=url]),
+.is-popout-window .workspace-leaf-content .view-content input:not([type=url]):not([class*=address]):not([class*=url]),
+.is-popout-window .workspace-leaf-content .view-content select, .is-popout-window .workspace-leaf-content .view-content button, .is-popout-window .workspace-leaf-content .view-content div, .is-popout-window .workspace-leaf-content .view-content span, .is-popout-window .workspace-leaf-content .view-content p, .is-popout-window .workspace-leaf-content .view-content a,
+.workspace-leaf-content[data-type*=webview] .view-content textarea:not([class*=address]):not([class*=url]),
+.workspace-leaf-content[data-type*=webview] .view-content input:not([type=url]):not([class*=address]):not([class*=url]),
+.workspace-leaf-content[data-type*=webview] .view-content select,
+.workspace-leaf-content[data-type*=webview] .view-content button,
+.workspace-leaf-content[data-type*=webview] .view-content div,
+.workspace-leaf-content[data-type*=webview] .view-content span,
+.workspace-leaf-content[data-type*=webview] .view-content p,
+.workspace-leaf-content[data-type*=webview] .view-content a {
   color: var(--text-normal) !important;
   -webkit-text-fill-color: var(--text-normal) !important;
   transition: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+iframe {
+  color: var(--text-normal) !important;
+  -webkit-text-fill-color: var(--text-normal) !important;
+}
+iframe *:not([type=url]):not([class*=address]):not([class*=url]):not([class*=nav]) {
+  color: inherit !important;
+  -webkit-text-fill-color: inherit !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
