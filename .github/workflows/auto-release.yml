@@ -182,14 +182,33 @@ jobs:
           # Clean up temporary files first
           rm -f release_notes.md
           
-          # Switch to main branch and merge the changes for BRAT compatibility
+          # Configure git for the action
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Fetch latest main branch
           git fetch origin main
+          
+          # Stash any local changes
+          git stash push -m "temp stash for main sync"
+          
+          # Switch to main branch
           git checkout main
-          git merge origin/dev --no-edit -m "chore: sync beta v${NEW_VERSION} to main for BRAT compatibility"
+          git pull origin main
+          
+          # Copy only the version files from dev branch, not merge entire branch
+          git checkout dev -- manifest.json package.json theme.css
+          
+          # Commit the version sync
+          git add manifest.json package.json theme.css
+          git commit -m "chore: sync beta v${NEW_VERSION} to main for BRAT compatibility"
           git push origin main
           
           # Switch back to dev branch
           git checkout dev
+          
+          # Restore any stashed changes
+          git stash pop || true
           
           echo "Beta version v${NEW_VERSION} synced to main branch for BRAT compatibility"
 
