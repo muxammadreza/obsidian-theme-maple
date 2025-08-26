@@ -1,0 +1,190 @@
+name: Beta Release
+
+on:
+  push:
+    branches: [ dev ]
+  workflow_dispatch:
+    inputs:
+      beta_version:
+        description: 'Beta version suffix (e.g., beta.2)'
+        required: false
+        default: 'beta.1'
+
+jobs:
+  beta-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Get version info
+      id: version
+      run: |
+        # Get the current version from package.json
+        BASE_VERSION=$(node -p "require('./package.json').version.split('-')[0]")
+        
+        # Calculate beta version
+        if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          BETA_SUFFIX="${{ github.event.inputs.beta_version }}"
+        else
+          # Auto-increment beta version based on existing releases
+          LATEST_BETA=$(gh release list --limit 50 | grep -E "${BASE_VERSION}-beta\." | head -n1 | cut -f1 | sed "s/${BASE_VERSION}-beta\.//" || echo "0")
+          NEXT_BETA=$((LATEST_BETA + 1))
+          BETA_SUFFIX="beta.${NEXT_BETA}"
+        fi
+        
+        BETA_VERSION="${BASE_VERSION}-${BETA_SUFFIX}"
+        echo "beta_version=${BETA_VERSION}" >> $GITHUB_OUTPUT
+        echo "base_version=${BASE_VERSION}" >> $GITHUB_OUTPUT
+        echo "Beta version will be: ${BETA_VERSION}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Update version files
+      run: |
+        # Update package.json
+        npm version ${{ steps.version.outputs.beta_version }} --no-git-tag-version
+        
+        # Update manifest.json
+        node -e "
+          const fs = require('fs');
+          const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+          manifest.version = '${{ steps.version.outputs.beta_version }}';
+          fs.writeFileSync('manifest.json', JSON.stringify(manifest, null, 2) + '\n');
+        "
+
+    - name: Update style settings version
+      run: |
+        # Update the version in style settings
+        sed -i "s/default: \"'maple [^']*'\"/default: \"'maple ${{ steps.version.outputs.beta_version }}'\"/g" src/style-settings/workspace.scss
+
+    - name: Build theme
+      run: npm run build
+
+    - name: Create release notes
+      id: release_notes
+      run: |
+        cat > release_notes.md << 'EOF'
+        # 🧪 Maple Theme Beta Release - v${{ steps.version.outputs.beta_version }}
+        
+        > **⚠️ This is a BETA release** - Use for testing purposes. Report issues on GitHub.
+        
+        ## 🚀 What's New in This Beta
+        
+        ### ✨ Recent Features
+        - Enhanced file explorer icon customization (9 file + 6 folder styles)
+        - Full Obsidian 1.9.12 compatibility
+        - Comprehensive Bases plugin support
+        - Modern CSS architecture with improved performance
+        - Enhanced accessibility features
+        
+        ### 🎨 Bases Plugin Integration
+        - Custom styling for `.base` files in file explorer
+        - Enhanced table and form views
+        - Configurable color schemes for base files
+        - Compact table view option
+        
+        ### 🔧 Technical Improvements
+        - Updated minimum Obsidian version to 1.6.0
+        - Modern CSS custom properties system
+        - Better animation easing and shadow system
+        - Cross-browser compatibility improvements
+        
+        ## 📦 Installation via BRAT
+        
+        1. Install the [BRAT plugin](https://github.com/TfTHacker/obsidian42-brat)
+        2. Add this beta theme: `muxammadreza/obsidian-theme-maple`
+        3. Enable "Frozen Version" in BRAT settings to stay on this beta
+        4. Or use the direct installation link: `obsidian://brat?plugin=muxammadreza/obsidian-theme-maple&branch=dev`
+        
+        ## 🐛 Testing & Feedback
+        
+        Please test with:
+        - [ ] File explorer icon customization
+        - [ ] Bases plugin integration (if you have it installed)
+        - [ ] Various Obsidian themes (light/dark)
+        - [ ] Style Settings plugin integration
+        - [ ] Performance with large vaults
+        
+        **Report issues**: [GitHub Issues](https://github.com/muxammadreza/obsidian-theme-maple/issues)
+        
+        ---
+        
+        ### 📋 Full Changelog
+        
+        EOF
+        
+        # Add commit messages since last stable release
+        echo "Recent commits included in this beta:" >> release_notes.md
+        echo '```' >> release_notes.md
+        git log --oneline $(git describe --tags --abbrev=0 main 2>/dev/null || echo "HEAD~10")..HEAD >> release_notes.md
+        echo '```' >> release_notes.md
+
+    - name: Create Beta Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.version.outputs.beta_version }}
+        name: "🧪 Beta Release v${{ steps.version.outputs.beta_version }}"
+        body_path: release_notes.md
+        draft: false
+        prerelease: true
+        files: |
+          manifest.json
+          theme.css
+          package.json
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Update BRAT compatibility
+      run: |
+        # Create/update versions.json for BRAT compatibility
+        cat > versions.json << EOF
+        {
+          "${{ steps.version.outputs.beta_version }}": "1.6.0"
+        }
+        EOF
+        
+        echo "Created versions.json for BRAT compatibility"
+
+    - name: Commit version updates
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "chore: bump version to ${{ steps.version.outputs.beta_version }}" || exit 0
+
+    - name: Push changes
+      run: git push origin dev
+
+    - name: Create BRAT installation summary
+      run: |
+        echo "## 🎉 Beta Release Created Successfully!" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Version**: \`${{ steps.version.outputs.beta_version }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📦 BRAT Installation Options:" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "1. **Manual BRAT Installation**:" >> $GITHUB_STEP_SUMMARY
+        echo "   - Repository: \`muxammadreza/obsidian-theme-maple\`" >> $GITHUB_STEP_SUMMARY
+        echo "   - Branch: \`dev\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "2. **Direct Installation Link**:" >> $GITHUB_STEP_SUMMARY
+        echo "   \`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "   obsidian://brat?plugin=muxammadreza/obsidian-theme-maple&branch=dev" >> $GITHUB_STEP_SUMMARY
+        echo "   \`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "3. **GitHub Release**: [View Release](https://github.com/muxammadreza/obsidian-theme-maple/releases/tag/${{ steps.version.outputs.beta_version }})" >> $GITHUB_STEP_SUMMARY
