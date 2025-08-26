@@ -174,8 +174,14 @@ jobs:
           git add package.json manifest.json theme.css
           git commit -m "chore: bump version to v${NEW_VERSION} (${RELEASE_TYPE})"
           
-          # Push to target branch
-          git push origin HEAD:$TARGET_BRANCH
+          # For beta releases, force push to main to ensure BRAT compatibility
+          if [ "$RELEASE_TYPE" = "beta" ]; then
+            echo "Force pushing beta release to main for BRAT compatibility"
+            git push origin HEAD:$TARGET_BRANCH --force
+          else
+            # For stable releases, normal push to main
+            git push origin HEAD:$TARGET_BRANCH
+          fi
 
       - name: Create GitHub Release
         if: steps.check_commit.outputs.skip_workflow == 'false'
