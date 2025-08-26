@@ -57,8 +57,8 @@ settings:
         title: Custom Highlight Color
         title.zh: 自定义高亮颜色
         type: variable-color
-        format: rgb
-        default: '#'
+        format: hex
+        default: '#DF7861'
         opacity: false
     -
         id: color-more-light
@@ -168,8 +168,8 @@ settings:
         title: Custom Highlight Color
         title.zh: 自定义高亮颜色
         type: variable-color
-        default: '#'
-        format: rgb
+        default: '#64B5F6'
+        format: hex
         opacity: false
     -
         id: color-more-dark
@@ -257,48 +257,48 @@ settings:
         title.zh: 主背景色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: setting-background-secondary
         title: Secondary Background
         title.zh: 次要背景色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#f6f8fa'
+        default-dark: '#161b22'
     -
         id: setting-background-modifier-hover
         title: Hover Background
         title.zh: 悬停背景色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#f3f4f6'
+        default-dark: '#21262d'
     -
         id: setting-frame-background
         title: Frame Background
         title.zh: 框架背景色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#f8f9fa'
+        default-dark: '#0d1117'
     -
         id: setting-frame-outline
         title: Frame Outline
         title.zh: 框架边框色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#d1d9e0'
+        default-dark: '#30363d'
     -
         id: setting-frame-muted
         title: Frame Muted Color
         title.zh: 框架静音色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#656d76'
+        default-dark: '#8b949e'
     -
         id: text-colors
         title: Text Colors
@@ -320,8 +320,8 @@ settings:
         title.zh: 静音文字
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#656d76'
+        default-dark: '#8b949e'
     -
         id: setting-text-faint
         title: Faint Text
@@ -329,7 +329,7 @@ settings:
         type: variable-themed-color
         format: hex
         default-light: '#aaaaaa'
-        default-dark: '#'
+        default-dark: '#484f58'
     -
 */
 /* @settings
@@ -389,10 +389,10 @@ settings:
         title: Wave Color
         title.zh: 波浪颜色
         type: variable-themed-color
-        format: rgb
+        format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#DF7861'
+        default-dark: '#64B5F6'
     -
         id: explorer
         title: File Explorer
@@ -665,10 +665,10 @@ settings:
         title.zh: 气泡提示框背景色
         description.zh: 气泡提示框和通知的背景颜色
         type: variable-themed-color
-        format: hsl-values
+        format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f6f8fa'
     -
         id: setting-message-fg
         title: Tooltip Text Color
@@ -678,8 +678,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#24292f'
     -
         id: modal
         title: Modal & Setting Panel
@@ -819,28 +819,28 @@ settings:
         title: Node Color
         title.zh: 普通节点颜色
         type: variable-themed-color
-        format: rgb-values
+        format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f6f8fa'
     -
         id: setting-graph-node-unresolved
         title: Unresolved Node Color
         title.zh: 未连接节点颜色
         type: variable-themed-color
-        format: rgb-values
+        format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#8b949e'
+        default-dark: '#656d76'
     -
         id: setting-graph-node-focus
         title: Focused Node Color
         title.zh: 聚焦节点颜色
         type: variable-themed-color
-        format: rgb-values
+        format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#DF7861'
+        default-dark: '#64B5F6'
     -
         id: bases-plugin
         title: Bases Plugin Support
@@ -904,9 +904,9 @@ settings:
         title: Editor Background Color
         title.zh: 编辑器背景色
         type: variable-themed-color
-        format: hsl-values
-        default-light: '#'
-        default-dark: '#'
+        format: hex
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: setting-md-container-bg
         title: Editor Container Background Color
@@ -914,9 +914,9 @@ settings:
         title.zh: 编辑器容器背景色
         description.zh: 引用、代码块、表格等
         type: variable-themed-color
-        format: hsl-values
-        default-light: '#'
-        default-dark: '#'
+        format: hex
+        default-light: '#f6f8fa'
+        default-dark: '#161b22'
     -
         id: text-line-font
         title: Text & Font & Line
@@ -1038,8 +1038,8 @@ settings:
         title.zh: 高亮行颜色
         type: variable-themed-color
         format: hex-values
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-text-normal
         title: Editor Text Color
@@ -1047,8 +1047,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: text-highlight
         title: Highlight
@@ -1071,8 +1071,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-text-highlight-radius
         title: Highlight Background Radius
@@ -1111,8 +1111,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-text-bold-style
         title: Bold Style
@@ -1141,8 +1141,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-text-italic-style
         title: Italic Style
@@ -1203,8 +1203,8 @@ settings:
         type: variable-themed-color
         format: rgb-values
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-link-internal-color-underline
         title: Internal Link Underline Color
@@ -1212,8 +1212,8 @@ settings:
         type: variable-themed-color
         format: rgb
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-link-external-color
         title: External Link Color
@@ -1221,8 +1221,8 @@ settings:
         type: variable-themed-color
         format: rgb-values
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-link-external-color-underline
         title: External Link Underline Color
@@ -1230,8 +1230,8 @@ settings:
         type: variable-themed-color
         format: rgb
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: heading
         title: Heading
@@ -1327,8 +1327,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-h2-color
         title: H2 Color
@@ -1336,8 +1336,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-h3-color
         title: H3 Color
@@ -1345,8 +1345,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-h4-color
         title: H4 Color
@@ -1354,8 +1354,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-h5-color
         title: H5 Color
@@ -1363,8 +1363,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-h6-color
         title: H6 Color
@@ -1372,8 +1372,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: heading-size
         title: Heading Size
@@ -1567,8 +1567,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-table-header-bg
         title: Header Background Color
@@ -1576,8 +1576,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: setting-table-line-bg
         title: Alt Line Color
@@ -1585,8 +1585,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: embed
         title: Embed File
@@ -1709,8 +1709,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-list-marker-alt
         title: List Marker Alt Color
@@ -1718,8 +1718,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: list-checkbox
         title: Task List (checkbox)
@@ -1746,8 +1746,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-list-checkbox-color-hover
         title: Checkbox Marker Hover Color
@@ -1755,8 +1755,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-list-checkbox-border
         title: Checkbox Marker Border
@@ -1764,8 +1764,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#d1d9e0'
+        default-dark: '#30363d'
     -
         id: code
         title: Code
@@ -1780,8 +1780,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-code-bg
         title: Code Block Background Color
@@ -1789,8 +1789,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: code-line-number
         title: Add Code Block Line Number In Live Preview Mode
@@ -1848,8 +1848,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: code-theme
         title: Use Theme's Color Schema
@@ -1895,8 +1895,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: tag-outline-setting
         title: Outline Style Setting
@@ -1911,8 +1911,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-tag-border
         title: Tag Border Color
@@ -1920,8 +1920,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#d1d9e0'
+        default-dark: '#30363d'
     -
         id: canvas
         title: Canvas
@@ -2019,8 +2019,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-kanban-item-bg
         title: Kanban Item Background Color
@@ -2028,8 +2028,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#21262d'
     -
         id: setting-kanban-board-bg
         title: Kanban Board Backgound Color
@@ -2037,8 +2037,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#f6f8fa'
+        default-dark: '#0d1117'
     -
         id: dv
         title: DataView(WIP)
@@ -2067,6 +2067,46 @@ settings:
   transform: translateY(-50%);
 }
 
+.style-settings-container .pcr-button {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--input-radius);
+  transition: var(--animation);
+}
+.style-settings-container .pcr-button:hover {
+  border-color: var(--background-modifier-border-hover);
+  box-shadow: var(--input-shadow-hover);
+}
+.style-settings-container .setting-item {
+  border-radius: var(--radius-s);
+  transition: var(--animation);
+}
+.style-settings-container .setting-item:hover {
+  background-color: var(--background-modifier-hover);
+}
+.style-settings-container .themed-color-wrapper {
+  border-radius: var(--radius-s);
+  overflow: hidden;
+  border: 1px solid var(--background-modifier-border);
+}
+.style-settings-container .themed-color-wrapper .theme-light, .style-settings-container .themed-color-wrapper .theme-dark {
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--background-modifier-border);
+  transition: var(--animation);
+}
+.style-settings-container .themed-color-wrapper .theme-light:hover, .style-settings-container .themed-color-wrapper .theme-dark:hover {
+  border-color: var(--background-modifier-border-hover);
+}
+
+.style-settings-container .pickr .pcr-button::before {
+  background: var(--pcr-color, currentColor) !important;
+  border-radius: inherit;
+}
+
+.style-settings-container .setting-item-description {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
 :is(.style-settings-import, .style-settings-export, .style-settings-copy, .style-settings-download, .style-settings-import-label) {
   transition: var(--animation);
   text-decoration: none !important;
@@ -2091,10 +2131,12 @@ settings:
 }
 
 .themed-color-wrapper > .theme-light {
-  background-color: #eee;
+  background-color: #f6f8fa;
+  border: 1px solid #d1d9e0;
 }
 .themed-color-wrapper > .theme-dark {
-  background-color: #111;
+  background-color: #161b22;
+  border: 1px solid #30363d;
 }
 .themed-color-wrapper .pickr-reset > button {
   padding: var(--size-2-3);
@@ -2318,6 +2360,17 @@ body.modal-item-animation .style-settings-heading:hover {
   --color-accent-50: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.5);
   --color-accent-75: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.75);
   --color-accent-emphasized: hsl(var(--accent-h), calc(var(--accent-s) + 10%), calc(var(--accent-l) - 10%));
+  --color-accent: var(--accent-active);
+  --color-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 4%));
+  --color-base-00: var(--background-primary);
+  --color-base-05: var(--background-secondary);
+  --color-base-10: var(--background-modifier-hover);
+  --color-base-20: var(--frame-outline-color);
+  --color-base-25: var(--frame-background-color);
+  --color-base-30: var(--frame-muted-color);
+  --color-base-40: var(--text-faint);
+  --color-base-50: var(--text-muted);
+  --color-base-100: var(--text-normal);
   --background-modifier-form-field: var(--background-secondary);
   --background-modifier-form-field-highlighted: var(--background-modifier-hover);
   --anim-motion-smooth: cubic-bezier(0.45, 0, 0.55, 1);

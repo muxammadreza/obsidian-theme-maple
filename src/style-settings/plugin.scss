@@ -48,8 +48,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-kanban-item-bg
         title: Kanban Item Background Color
@@ -57,8 +57,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#21262d'
     -
         id: setting-kanban-board-bg
         title: Kanban Board Backgound Color
@@ -66,8 +66,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#f6f8fa'
+        default-dark: '#0d1117'
     -
         id: dv
         title: DataView(WIP)

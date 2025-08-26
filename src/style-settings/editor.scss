@@ -15,9 +15,9 @@ settings:
         title: Editor Background Color
         title.zh: 编辑器背景色
         type: variable-themed-color
-        format: hsl-values
-        default-light: '#'
-        default-dark: '#'
+        format: hex
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: setting-md-container-bg
         title: Editor Container Background Color
@@ -25,9 +25,9 @@ settings:
         title.zh: 编辑器容器背景色
         description.zh: 引用、代码块、表格等
         type: variable-themed-color
-        format: hsl-values
-        default-light: '#'
-        default-dark: '#'
+        format: hex
+        default-light: '#f6f8fa'
+        default-dark: '#161b22'
     -
         id: text-line-font
         title: Text & Font & Line
@@ -149,8 +149,8 @@ settings:
         title.zh: 高亮行颜色
         type: variable-themed-color
         format: hex-values
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-text-normal
         title: Editor Text Color
@@ -158,8 +158,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: text-highlight
         title: Highlight
@@ -182,8 +182,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-text-highlight-radius
         title: Highlight Background Radius
@@ -222,8 +222,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-text-bold-style
         title: Bold Style
@@ -252,8 +252,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-text-italic-style
         title: Italic Style
@@ -314,8 +314,8 @@ settings:
         type: variable-themed-color
         format: rgb-values
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-link-internal-color-underline
         title: Internal Link Underline Color
@@ -323,8 +323,8 @@ settings:
         type: variable-themed-color
         format: rgb
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-link-external-color
         title: External Link Color
@@ -332,8 +332,8 @@ settings:
         type: variable-themed-color
         format: rgb-values
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-link-external-color-underline
         title: External Link Underline Color
@@ -341,8 +341,8 @@ settings:
         type: variable-themed-color
         format: rgb
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: heading
         title: Heading
@@ -438,8 +438,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-h2-color
         title: H2 Color
@@ -447,8 +447,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-h3-color
         title: H3 Color
@@ -456,8 +456,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-h4-color
         title: H4 Color
@@ -465,8 +465,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-h5-color
         title: H5 Color
@@ -474,8 +474,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-h6-color
         title: H6 Color
@@ -483,8 +483,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: heading-size
         title: Heading Size
@@ -678,8 +678,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-table-header-bg
         title: Header Background Color
@@ -687,8 +687,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: setting-table-line-bg
         title: Alt Line Color
@@ -696,8 +696,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: embed
         title: Embed File
@@ -820,8 +820,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-list-marker-alt
         title: List Marker Alt Color
@@ -829,8 +829,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: list-checkbox
         title: Task List (checkbox)
@@ -857,8 +857,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-list-checkbox-color-hover
         title: Checkbox Marker Hover Color
@@ -866,8 +866,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-list-checkbox-border
         title: Checkbox Marker Border
@@ -875,8 +875,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#d1d9e0'
+        default-dark: '#30363d'
     -
         id: code
         title: Code
@@ -891,8 +891,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-code-bg
         title: Code Block Background Color
@@ -900,8 +900,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: code-line-number
         title: Add Code Block Line Number In Live Preview Mode
@@ -959,8 +959,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: code-theme
         title: Use Theme's Color Schema
@@ -1006,8 +1006,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: tag-outline-setting
         title: Outline Style Setting
@@ -1022,8 +1022,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f0f6fc'
     -
         id: setting-tag-border
         title: Tag Border Color
@@ -1031,8 +1031,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#d1d9e0'
+        default-dark: '#30363d'
     -
         id: canvas
         title: Canvas

@@ -38,6 +38,19 @@
   --color-accent-75: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.75);
   --color-accent-emphasized: hsl(var(--accent-h), calc(var(--accent-s) + 10%), calc(var(--accent-l) - 10%));
   
+  // Modern color system compatibility
+  --color-accent: var(--accent-active);
+  --color-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 4%));
+  --color-base-00: var(--background-primary);
+  --color-base-05: var(--background-secondary);
+  --color-base-10: var(--background-modifier-hover);
+  --color-base-20: var(--frame-outline-color);
+  --color-base-25: var(--frame-background-color);
+  --color-base-30: var(--frame-muted-color);
+  --color-base-40: var(--text-faint);
+  --color-base-50: var(--text-muted);
+  --color-base-100: var(--text-normal);
+  
   // Enhanced form field styling
   --background-modifier-form-field: var(--background-secondary);
   --background-modifier-form-field-highlighted: var(--background-modifier-hover);

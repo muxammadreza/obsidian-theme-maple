@@ -55,8 +55,8 @@ settings:
         title: Custom Highlight Color
         title.zh: 自定义高亮颜色
         type: variable-color
-        format: rgb
-        default: '#'
+        format: hex
+        default: '#DF7861'
         opacity: false
     -
         id: color-more-light
@@ -166,8 +166,8 @@ settings:
         title: Custom Highlight Color
         title.zh: 自定义高亮颜色
         type: variable-color
-        default: '#'
-        format: rgb
+        default: '#64B5F6'
+        format: hex
         opacity: false
     -
         id: color-more-dark
@@ -255,48 +255,48 @@ settings:
         title.zh: 主背景色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#0d1117'
     -
         id: setting-background-secondary
         title: Secondary Background
         title.zh: 次要背景色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#f6f8fa'
+        default-dark: '#161b22'
     -
         id: setting-background-modifier-hover
         title: Hover Background
         title.zh: 悬停背景色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#f3f4f6'
+        default-dark: '#21262d'
     -
         id: setting-frame-background
         title: Frame Background
         title.zh: 框架背景色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#f8f9fa'
+        default-dark: '#0d1117'
     -
         id: setting-frame-outline
         title: Frame Outline
         title.zh: 框架边框色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#d1d9e0'
+        default-dark: '#30363d'
     -
         id: setting-frame-muted
         title: Frame Muted Color
         title.zh: 框架静音色
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#656d76'
+        default-dark: '#8b949e'
     -
         id: text-colors
         title: Text Colors
@@ -318,8 +318,8 @@ settings:
         title.zh: 静音文字
         type: variable-themed-color
         format: hex
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#656d76'
+        default-dark: '#8b949e'
     -
         id: setting-text-faint
         title: Faint Text
@@ -327,6 +327,6 @@ settings:
         type: variable-themed-color
         format: hex
         default-light: '#aaaaaa'
-        default-dark: '#'
+        default-dark: '#484f58'
     -
 */

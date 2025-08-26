@@ -55,10 +55,10 @@ settings:
         title: Wave Color
         title.zh: 波浪颜色
         type: variable-themed-color
-        format: rgb
+        format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#DF7861'
+        default-dark: '#64B5F6'
     -
         id: explorer
         title: File Explorer
@@ -331,10 +331,10 @@ settings:
         title.zh: 气泡提示框背景色
         description.zh: 气泡提示框和通知的背景颜色
         type: variable-themed-color
-        format: hsl-values
+        format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f6f8fa'
     -
         id: setting-message-fg
         title: Tooltip Text Color
@@ -344,8 +344,8 @@ settings:
         type: variable-themed-color
         format: hex
         opacity: false
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#ffffff'
+        default-dark: '#24292f'
     -
         id: modal
         title: Modal & Setting Panel
@@ -485,28 +485,28 @@ settings:
         title: Node Color
         title.zh: 普通节点颜色
         type: variable-themed-color
-        format: rgb-values
+        format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#24292f'
+        default-dark: '#f6f8fa'
     -
         id: setting-graph-node-unresolved
         title: Unresolved Node Color
         title.zh: 未连接节点颜色
         type: variable-themed-color
-        format: rgb-values
+        format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#8b949e'
+        default-dark: '#656d76'
     -
         id: setting-graph-node-focus
         title: Focused Node Color
         title.zh: 聚焦节点颜色
         type: variable-themed-color
-        format: rgb-values
+        format: hex
         opacity: true
-        default-light: '#'
-        default-dark: '#'
+        default-light: '#DF7861'
+        default-dark: '#64B5F6'
     -
         id: bases-plugin
         title: Bases Plugin Support

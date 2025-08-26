@@ -17,6 +17,60 @@
   }
 }
 
+// Enhanced Style Settings UI
+.style-settings-container {
+  // Improve color picker button visibility
+  .pcr-button {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--input-radius);
+    transition: var(--animation);
+    
+    &:hover {
+      border-color: var(--background-modifier-border-hover);
+      box-shadow: var(--input-shadow-hover);
+    }
+  }
+
+  // Improve setting items
+  .setting-item {
+    border-radius: var(--radius-s);
+    transition: var(--animation);
+    
+    &:hover {
+      background-color: var(--background-modifier-hover);
+    }
+  }
+
+  // Better color preview in themed color settings
+  .themed-color-wrapper {
+    border-radius: var(--radius-s);
+    overflow: hidden;
+    border: 1px solid var(--background-modifier-border);
+    
+    .theme-light, .theme-dark {
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--background-modifier-border);
+      transition: var(--animation);
+      
+      &:hover {
+        border-color: var(--background-modifier-border-hover);
+      }
+    }
+  }
+}
+
+// Ensure color picker shows current values correctly
+.style-settings-container .pickr .pcr-button::before {
+  background: var(--pcr-color, currentColor) !important;
+  border-radius: inherit;
+}
+
+// Improve description text
+.style-settings-container .setting-item-description {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
 :is(.style-settings-import, .style-settings-export, .style-settings-copy, .style-settings-download, .style-settings-import-label) {
   transition: var(--animation);
   text-decoration: none !important;
@@ -43,11 +97,13 @@
 
 .themed-color-wrapper {
   &>.theme-light {
-    background-color: #eee;
+    background-color: #f6f8fa; // Updated to match modern light theme
+    border: 1px solid #d1d9e0;
   }
 
   &>.theme-dark {
-    background-color: #111;
+    background-color: #161b22; // Updated to match modern dark theme  
+    border: 1px solid #30363d;
   }
 
   .pickr-reset>button {
