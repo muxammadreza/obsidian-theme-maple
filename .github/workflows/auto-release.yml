@@ -22,19 +22,6 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8
-
-      - name: Install dependencies
-        run: pnpm install
-
       - name: Check if this is an automated commit
         id: check_commit
         run: |
@@ -53,9 +40,25 @@ jobs:
             echo "skip_workflow=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Get current version and determine new version
-        id: version
+      - name: Setup Node.js
         if: steps.check_commit.outputs.skip_workflow == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        if: steps.check_commit.outputs.skip_workflow == 'false'
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - name: Install dependencies
+        if: steps.check_commit.outputs.skip_workflow == 'false'
+        run: pnpm install
+
+      - name: Get current version and determine new version
+        if: steps.check_commit.outputs.skip_workflow == 'false'
+        id: version
         run: |
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           BRANCH_NAME="${{ github.ref_name }}"
@@ -64,7 +67,7 @@ jobs:
           echo "Branch: $BRANCH_NAME"
           
           if [ "$BRANCH_NAME" = "dev" ]; then
-            # Beta release
+            # Beta release - always beta, increment number
             if [[ "$CURRENT_VERSION" =~ ^(.+)-beta\.([0-9]+)$ ]]; then
               BASE_VERSION="${BASH_REMATCH[1]}"
               BETA_NUM="${BASH_REMATCH[2]}"
@@ -75,30 +78,27 @@ jobs:
             fi
             RELEASE_TYPE="beta"
             IS_PRERELEASE="true"
-          else
-            # Stable release
+            TARGET_BRANCH="main"  # Push beta to main for BRAT
+          elif [ "$BRANCH_NAME" = "main" ]; then
+            # Only create stable release if current version is beta (coming from dev)
             if [[ "$CURRENT_VERSION" =~ ^(.+)-beta\.([0-9]+)$ ]]; then
               NEW_VERSION="${BASH_REMATCH[1]}"
+              RELEASE_TYPE="stable"
+              IS_PRERELEASE="false"
+              TARGET_BRANCH="main"
             else
-              # Bump patch version
-              if [[ "$CURRENT_VERSION" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
-                MAJOR="${BASH_REMATCH[1]}"
-                MINOR="${BASH_REMATCH[2]}"
-                PATCH="${BASH_REMATCH[3]}"
-                NEW_PATCH=$((PATCH + 1))
-                NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
-              else
-                NEW_VERSION="$CURRENT_VERSION"
-              fi
+              # If already stable version on main, just exit
+              echo "Already stable version on main branch, no action needed"
+              echo "skip_workflow=true" >> $GITHUB_OUTPUT
+              exit 0
             fi
-            RELEASE_TYPE="stable"
-            IS_PRERELEASE="false"
           fi
           
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "release_type=$RELEASE_TYPE" >> $GITHUB_OUTPUT
           echo "is_prerelease=$IS_PRERELEASE" >> $GITHUB_OUTPUT
-          echo "New version: $NEW_VERSION (type: $RELEASE_TYPE)"
+          echo "target_branch=$TARGET_BRANCH" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION (type: $RELEASE_TYPE, target: $TARGET_BRANCH)"
 
       - name: Update version in files
         if: steps.check_commit.outputs.skip_workflow == 'false'
@@ -161,64 +161,30 @@ jobs:
           
           echo "RELEASE_TITLE=$TITLE" >> $GITHUB_ENV
 
-      - name: Commit version changes
+      - name: Commit and push to target branch
         if: steps.check_commit.outputs.skip_workflow == 'false'
         run: |
           NEW_VERSION="${{ steps.version.outputs.new_version }}"
           RELEASE_TYPE="${{ steps.version.outputs.release_type }}"
+          TARGET_BRANCH="${{ steps.version.outputs.target_branch }}"
           
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
           git add package.json manifest.json theme.css
           git commit -m "chore: bump version to v${NEW_VERSION} (${RELEASE_TYPE})"
-          git push origin ${{ github.ref_name }}
-
-      - name: Update main branch for BRAT compatibility
-        if: steps.check_commit.outputs.skip_workflow == 'false' && github.ref_name == 'dev'
-        run: |
-          NEW_VERSION="${{ steps.version.outputs.new_version }}"
           
-          # Clean up temporary files first
-          rm -f release_notes.md
-          
-          # Configure git for the action
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          
-          # Fetch latest main branch
-          git fetch origin main
-          
-          # Stash any local changes
-          git stash push -m "temp stash for main sync"
-          
-          # Switch to main branch
-          git checkout main
-          git pull origin main
-          
-          # Copy only the version files from dev branch, not merge entire branch
-          git checkout dev -- manifest.json package.json theme.css
-          
-          # Commit the version sync
-          git add manifest.json package.json theme.css
-          git commit -m "chore: sync beta v${NEW_VERSION} to main for BRAT compatibility"
-          git push origin main
-          
-          # Switch back to dev branch
-          git checkout dev
-          
-          # Restore any stashed changes
-          git stash pop || true
-          
-          echo "Beta version v${NEW_VERSION} synced to main branch for BRAT compatibility"
+          # Push to target branch
+          git push origin HEAD:$TARGET_BRANCH
 
       - name: Create GitHub Release
         if: steps.check_commit.outputs.skip_workflow == 'false'
         run: |
           NEW_VERSION="${{ steps.version.outputs.new_version }}"
           IS_PRERELEASE="${{ steps.version.outputs.is_prerelease }}"
+          TARGET_BRANCH="${{ steps.version.outputs.target_branch }}"
           
-          RELEASE_CMD="gh release create v${NEW_VERSION} --title \"$RELEASE_TITLE\" --notes-file release_notes.md --target ${{ github.ref_name }}"
+          RELEASE_CMD="gh release create v${NEW_VERSION} --title \"$RELEASE_TITLE\" --notes-file release_notes.md --target $TARGET_BRANCH"
           
           if [ "$IS_PRERELEASE" = "true" ]; then
             RELEASE_CMD="$RELEASE_CMD --prerelease"
