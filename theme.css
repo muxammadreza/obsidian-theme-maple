@@ -6159,79 +6159,42 @@ body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable :is(.vert
 body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable :is(.vertical-tab-header, .vertical-tab-content, .nav-files-container, .workspace-leaf-content:not([data-type*=graph], [data-type*=pdf]) .view-content, .search-result-container, .git-view-body, .suggestion-container .suggestion, .prompt-results, .community-modal-search-results-wrapper, .community-modal-info, .modal:not(.mod-settings, .mod-community-theme, .mod-community-plugin), .tag-container, .backlink-pane, .markdown-source-view .cm-scroller, .markdown-preview-view, .workspace .mod-root .workspace-tabs.mod-stacked .workspace-tab-container, .markdown-embed-content .markdown-rendered, pre code, .workspace-leaf-content[data-type=calendar] .view-content, .janitor-scan-results, .excalidraw-wrapper :is(.App-menu .Stack .Island.App-menu__left, .scrollbar), .excalidraw-contextMenuContainer .popover, .kanban-plugin__board, .kanban-plugin__lane-items, .kanban-plugin__autocomplete):hover {
   --scrollbar-color: hsla(var(--color-accent-hsl), 24%);
 }
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] textarea):not(.is-popout-window textarea):not(iframe textarea) {
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] *):not(.is-popout-window *):not(iframe *) {
   color: transparent;
   transition: color var(--animation);
   -webkit-text-fill-color: var(--text-normal);
 }
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] textarea):not(.is-popout-window textarea):not(iframe textarea):hover {
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] *):not(.is-popout-window *):not(iframe *):hover {
   color: hsla(var(--color-accent-hsl), 24%);
 }
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] textarea):not(.is-popout-window textarea):not(iframe textarea) * {
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] *):not(.is-popout-window *):not(iframe *) * {
   -webkit-text-fill-color: initial;
 }
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] textarea):not(.is-popout-window textarea):not(iframe textarea)::-webkit-scrollbar-thumb {
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] *):not(.is-popout-window *):not(iframe *)::-webkit-scrollbar-thumb {
   box-shadow: 0 0 0 10px inset;
   border-width: 3.2px;
   background-clip: content-box;
   background-color: transparent !important;
-}
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .workspace-leaf-content[data-type*=webview] textarea, body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .workspace-leaf-content[data-type*=webview] input, body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .workspace-leaf-content[data-type*=webview] select, body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .workspace-leaf-content[data-type*=webview] button,
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .is-popout-window .workspace-leaf-content textarea,
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .is-popout-window .workspace-leaf-content input,
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .is-popout-window .workspace-leaf-content select,
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .is-popout-window .workspace-leaf-content button,
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable iframe textarea,
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable iframe input,
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable iframe select,
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable iframe button {
-  color: var(--text-normal) !important;
-  -webkit-text-fill-color: var(--text-normal) !important;
 }
 
 body.scrollbar-hide :not([style="overflow-x: auto;"])::-webkit-scrollbar {
   display: none !important;
 }
 
-.is-popout-window .workspace-leaf-content .view-content,
-.workspace-leaf-content[data-type*=webview] .view-content {
-  color: var(--text-normal) !important;
-  -webkit-text-fill-color: var(--text-normal) !important;
-}
-.is-popout-window .workspace-leaf-content .view-content *:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]), .is-popout-window .workspace-leaf-content .view-content *::before:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]), .is-popout-window .workspace-leaf-content .view-content *::after:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]),
-.workspace-leaf-content[data-type*=webview] .view-content *:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]),
-.workspace-leaf-content[data-type*=webview] .view-content *::before:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]),
-.workspace-leaf-content[data-type*=webview] .view-content *::after:not(.view-header):not([class*=address]):not([class*=url]):not([type=url]) {
-  color: inherit !important;
-  -webkit-text-fill-color: inherit !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-.is-popout-window .workspace-leaf-content .view-content textarea:not([class*=address]):not([class*=url]),
-.is-popout-window .workspace-leaf-content .view-content input:not([type=url]):not([class*=address]):not([class*=url]),
-.is-popout-window .workspace-leaf-content .view-content select, .is-popout-window .workspace-leaf-content .view-content button, .is-popout-window .workspace-leaf-content .view-content div, .is-popout-window .workspace-leaf-content .view-content span, .is-popout-window .workspace-leaf-content .view-content p, .is-popout-window .workspace-leaf-content .view-content a,
-.workspace-leaf-content[data-type*=webview] .view-content textarea:not([class*=address]):not([class*=url]),
-.workspace-leaf-content[data-type*=webview] .view-content input:not([type=url]):not([class*=address]):not([class*=url]),
-.workspace-leaf-content[data-type*=webview] .view-content select,
-.workspace-leaf-content[data-type*=webview] .view-content button,
-.workspace-leaf-content[data-type*=webview] .view-content div,
-.workspace-leaf-content[data-type*=webview] .view-content span,
-.workspace-leaf-content[data-type*=webview] .view-content p,
-.workspace-leaf-content[data-type*=webview] .view-content a {
+.workspace-leaf-content[data-type*=webview] *,
+.is-popout-window * {
   color: var(--text-normal) !important;
   -webkit-text-fill-color: var(--text-normal) !important;
   transition: none !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
-
-iframe {
+.workspace-leaf-content[data-type*=webview] iframe, .workspace-leaf-content[data-type*=webview] iframe *,
+.is-popout-window iframe,
+.is-popout-window iframe * {
   color: var(--text-normal) !important;
   -webkit-text-fill-color: var(--text-normal) !important;
-}
-iframe *:not([type=url]):not([class*=address]):not([class*=url]):not([class*=nav]) {
-  color: inherit !important;
-  -webkit-text-fill-color: inherit !important;
+  transition: none !important;
   opacity: 1 !important;
   visibility: visible !important;
 }

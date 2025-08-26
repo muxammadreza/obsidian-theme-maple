@@ -1,0 +1,155 @@
+name: Create Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if this is an automated commit
+        id: check_commit
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          if [[ "$COMMIT_MSG" =~ ^chore:.*version.*bump || "$COMMIT_MSG" =~ ^chore\(release\) ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js
+        if: steps.check_commit.outputs.skip == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        if: steps.check_commit.outputs.skip == 'false'
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        if: steps.check_commit.outputs.skip == 'false'
+        run: pnpm install
+
+      - name: Get current version and bump patch
+        if: steps.check_commit.outputs.skip == 'false'
+        id: version
+        run: |
+          # Get current version from manifest.json
+          CURRENT_VERSION=$(node -p "require('./manifest.json').version")
+          echo "Current version: $CURRENT_VERSION"
+          
+          # Extract version parts (remove any beta/alpha suffixes)
+          BASE_VERSION=$(echo $CURRENT_VERSION | sed 's/-.*$//')
+          
+          # Split version into parts
+          IFS='.' read -ra VERSION_PARTS <<< "$BASE_VERSION"
+          MAJOR=${VERSION_PARTS[0]}
+          MINOR=${VERSION_PARTS[1]}
+          PATCH=${VERSION_PARTS[2]}
+          
+          # Bump patch version
+          NEW_PATCH=$((PATCH + 1))
+          NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
+          
+          echo "New version: $NEW_VERSION"
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update version in files
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          NEW_VERSION="${{ steps.version.outputs.version }}"
+          
+          # Update manifest.json
+          node -e "
+            const fs = require('fs');
+            const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+            manifest.version = '$NEW_VERSION';
+            fs.writeFileSync('manifest.json', JSON.stringify(manifest, null, 2) + '\n');
+          "
+          
+          # Update package.json
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            pkg.version = '$NEW_VERSION';
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+          
+          # Update versions.json
+          if [ -f versions.json ]; then
+            node -e "
+              const fs = require('fs');
+              const versions = JSON.parse(fs.readFileSync('versions.json', 'utf8'));
+              versions['$NEW_VERSION'] = '1.6.0';
+              fs.writeFileSync('versions.json', JSON.stringify(versions, null, 2) + '\n');
+            "
+          fi
+
+      - name: Build theme
+        if: steps.check_commit.outputs.skip == 'false'
+        run: pnpm run build
+
+      - name: Commit version bump
+        if: steps.check_commit.outputs.skip == 'false'
+        run: |
+          NEW_VERSION="${{ steps.version.outputs.version }}"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "chore(release): version bump to $NEW_VERSION" || exit 0
+          git push
+
+      - name: Create Release
+        if: steps.check_commit.outputs.skip == 'false'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: "Maple Theme v${{ steps.version.outputs.version }}"
+          body: |
+            ## 🍁 Maple Theme v${{ steps.version.outputs.version }}
+            
+            **Install:** Download `theme.css` and place it in your Obsidian themes folder.
+            
+            **BRAT:** This theme is BRAT compatible for automatic updates.
+            
+            ### Changes
+            - Various improvements and bug fixes
+            
+          draft: false
+          prerelease: false
+
+      - name: Upload theme files
+        if: steps.check_commit.outputs.skip == 'false'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./theme.css
+          asset_name: theme.css
+          asset_content_type: text/css
+
+      - name: Upload manifest
+        if: steps.check_commit.outputs.skip == 'false'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./manifest.json
+          asset_name: manifest.json
+          asset_content_type: application/json

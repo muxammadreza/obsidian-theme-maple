@@ -93,35 +93,28 @@ body:not(.is-mobile):not(.mod-macos) {
       }
     }
 
-    // Exclude webview, iframe, and popout window content from textarea styling
-    textarea:not(.workspace-leaf-content[data-type*="webview"] textarea):not(.is-popout-window textarea):not(iframe textarea) {
-      color: transparent;
-      transition: color var(--animation);
-      -webkit-text-fill-color: var(--text-normal);
+    // Apply scrollbar animation only to non-webview content
+    textarea {
+      // Only apply the transparent effect to regular textarea elements
+      &:not(.workspace-leaf-content[data-type*="webview"] *):not(.is-popout-window *):not(iframe *) {
+        color: transparent;
+        transition: color var(--animation);
+        -webkit-text-fill-color: var(--text-normal);
 
-      &:hover {
-        color: #{$base-color};
-      }
+        &:hover {
+          color: #{$base-color};
+        }
 
-      * {
-        -webkit-text-fill-color: initial;
-      }
+        * {
+          -webkit-text-fill-color: initial;
+        }
 
-      &::-webkit-scrollbar-thumb {
-        box-shadow: 0 0 0 10px inset;
-        border-width: 3.2px;
-        background-clip: content-box;
-        background-color: transparent !important;
-      }
-    }
-
-    // Ensure webview and popout window content is not affected by the scrollbar animation
-    .workspace-leaf-content[data-type*="webview"],
-    .is-popout-window .workspace-leaf-content,
-    iframe {
-      textarea, input, select, button {
-        color: var(--text-normal) !important;
-        -webkit-text-fill-color: var(--text-normal) !important;
+        &::-webkit-scrollbar-thumb {
+          box-shadow: 0 0 0 10px inset;
+          border-width: 3.2px;
+          background-clip: content-box;
+          background-color: transparent !important;
+        }
       }
     }
   }
@@ -131,50 +124,24 @@ body.scrollbar-hide :not([style="overflow-x: auto;"])::-webkit-scrollbar {
   display: none !important;
 }
 
-// Fix for webview rendering issues in popout windows
-// Updated for better BRAT compatibility and link navigation
-.is-popout-window .workspace-leaf-content,
-.workspace-leaf-content[data-type*="webview"] {
-  // Reset any potentially problematic text styling for content area only
-  .view-content {
+// Simple and effective webview fix - disable problematic animations entirely for webview content
+.workspace-leaf-content[data-type*="webview"],
+.is-popout-window {
+  // Completely override scrollbar animation effects for webview content
+  * {
     color: var(--text-normal) !important;
     -webkit-text-fill-color: var(--text-normal) !important;
-    
-    // Ensure all child elements render properly, but exclude address/URL inputs
-    *, *::before, *::after {
-      &:not(.view-header):not([class*="address"]):not([class*="url"]):not([type="url"]) {
-        color: inherit !important;
-        -webkit-text-fill-color: inherit !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-      }
-    }
-    
-    // Force immediate rendering for webview content elements, but preserve input functionality
-    textarea:not([class*="address"]):not([class*="url"]), 
-    input:not([type="url"]):not([class*="address"]):not([class*="url"]), 
-    select, button, div, span, p, a {
-      color: var(--text-normal) !important;
-      -webkit-text-fill-color: var(--text-normal) !important;
-      transition: none !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
+    transition: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
-}
-
-// Specific iframe handling
-iframe {
-  color: var(--text-normal) !important;
-  -webkit-text-fill-color: var(--text-normal) !important;
   
-  // Ensure iframe content renders but don't interfere with navigation
-  * {
-    &:not([type="url"]):not([class*="address"]):not([class*="url"]):not([class*="nav"]) {
-      color: inherit !important;
-      -webkit-text-fill-color: inherit !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
+  // Ensure iframe content is never affected by theme animations
+  iframe, iframe * {
+    color: var(--text-normal) !important;
+    -webkit-text-fill-color: var(--text-normal) !important;
+    transition: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 }
