@@ -35,42 +35,78 @@ jobs:
       id: version
       run: |
         # Get the current version from package.json
-        BASE_VERSION=$(node -p "require('./package.json').version.split('-')[0]")
+        CURRENT_VERSION=$(node -p "require('./package.json').version")
+        BASE_VERSION=$(echo "$CURRENT_VERSION" | sed 's/-beta\..*//')
         
         # Calculate beta version
         if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
           BETA_SUFFIX="${{ github.event.inputs.beta_version }}"
+          BETA_VERSION="${BASE_VERSION}-${BETA_SUFFIX}"
         else
-          # Auto-increment beta version based on existing releases
-          LATEST_BETA=$(gh release list --limit 50 | grep -E "${BASE_VERSION}-beta\." | head -n1 | cut -f1 | sed "s/${BASE_VERSION}-beta\.//" || echo "0")
-          NEXT_BETA=$((LATEST_BETA + 1))
-          BETA_SUFFIX="beta.${NEXT_BETA}"
+          # Check if current version is already a beta
+          if [[ "$CURRENT_VERSION" =~ -beta\. ]]; then
+            # Extract current beta number and increment
+            CURRENT_BETA=$(echo "$CURRENT_VERSION" | sed 's/.*-beta\.//')
+            NEXT_BETA=$((CURRENT_BETA + 1))
+            BETA_VERSION="${BASE_VERSION}-beta.${NEXT_BETA}"
+          else
+            # First beta version
+            BETA_VERSION="${BASE_VERSION}-beta.1"
+          fi
         fi
         
-        BETA_VERSION="${BASE_VERSION}-${BETA_SUFFIX}"
+        echo "current_version=${CURRENT_VERSION}" >> $GITHUB_OUTPUT
         echo "beta_version=${BETA_VERSION}" >> $GITHUB_OUTPUT
         echo "base_version=${BASE_VERSION}" >> $GITHUB_OUTPUT
+        echo "Current version: ${CURRENT_VERSION}"
         echo "Beta version will be: ${BETA_VERSION}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Check if release already exists
+      id: check_release
+      run: |
+        # Check if a release with this tag already exists
+        if gh release view "${{ steps.version.outputs.beta_version }}" >/dev/null 2>&1; then
+          echo "Release ${{ steps.version.outputs.beta_version }} already exists"
+          echo "release_exists=true" >> $GITHUB_OUTPUT
+        else
+          echo "Release ${{ steps.version.outputs.beta_version }} does not exist, proceeding"
+          echo "release_exists=false" >> $GITHUB_OUTPUT
+        fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Update version files
       run: |
-        # Update package.json
-        npm version ${{ steps.version.outputs.beta_version }} --no-git-tag-version
-        
-        # Update manifest.json
-        node -e "
-          const fs = require('fs');
-          const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
-          manifest.version = '${{ steps.version.outputs.beta_version }}';
-          fs.writeFileSync('manifest.json', JSON.stringify(manifest, null, 2) + '\n');
-        "
+        # Only update if the version is different
+        if [[ "${{ steps.version.outputs.current_version }}" != "${{ steps.version.outputs.beta_version }}" ]]; then
+          echo "Updating version from ${{ steps.version.outputs.current_version }} to ${{ steps.version.outputs.beta_version }}"
+          
+          # Update package.json
+          npm version ${{ steps.version.outputs.beta_version }} --no-git-tag-version
+          
+          # Update manifest.json
+          node -e "
+            const fs = require('fs');
+            const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+            manifest.version = '${{ steps.version.outputs.beta_version }}';
+            fs.writeFileSync('manifest.json', JSON.stringify(manifest, null, 2) + '\n');
+          "
+        else
+          echo "Version is already ${{ steps.version.outputs.beta_version }}, skipping version update"
+        fi
 
     - name: Update style settings version
       run: |
-        # Update the version in style settings
-        sed -i "s/default: \"'maple [^']*'\"/default: \"'maple ${{ steps.version.outputs.beta_version }}'\"/g" src/style-settings/workspace.scss
+        # Only update style settings if version changed
+        if [[ "${{ steps.version.outputs.current_version }}" != "${{ steps.version.outputs.beta_version }}" ]]; then
+          echo "Updating style settings version to ${{ steps.version.outputs.beta_version }}"
+          # Update the version in style settings
+          sed -i "s/default: \"'maple [^']*'\"/default: \"'maple ${{ steps.version.outputs.beta_version }}'\"/g" src/style-settings/workspace.scss
+        else
+          echo "Style settings version already up to date"
+        fi
 
     - name: Build theme
       run: npm run build
@@ -135,6 +171,7 @@ jobs:
         echo '```' >> release_notes.md
 
     - name: Create Beta Release
+      if: steps.check_release.outputs.release_exists == 'false'
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ steps.version.outputs.beta_version }}
@@ -148,6 +185,20 @@ jobs:
           package.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Skip release creation
+      if: steps.check_release.outputs.release_exists == 'true'
+      run: |
+        echo "## ⚠️ Release Already Exists" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Release **${{ steps.version.outputs.beta_version }}** already exists." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📦 Existing BRAT Installation:" >> $GITHUB_STEP_SUMMARY
+        echo "- Repository: \`muxammadreza/obsidian-theme-maple\`" >> $GITHUB_STEP_SUMMARY
+        echo "- Branch: \`dev\`" >> $GITHUB_STEP_SUMMARY
+        echo "- Direct Link: \`obsidian://brat?plugin=muxammadreza/obsidian-theme-maple&branch=dev\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "[View Existing Release](https://github.com/muxammadreza/obsidian-theme-maple/releases/tag/${{ steps.version.outputs.beta_version }})" >> $GITHUB_STEP_SUMMARY
 
     - name: Update BRAT compatibility
       run: |
@@ -164,13 +215,27 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add .
-        git commit -m "chore: bump version to ${{ steps.version.outputs.beta_version }}" || exit 0
+        
+        # Check if there are any changes to commit
+        if git diff --quiet && git diff --cached --quiet; then
+          echo "No changes to commit - version was already up to date"
+        else
+          git add .
+          git commit -m "chore: bump version to ${{ steps.version.outputs.beta_version }}"
+          echo "VERSION_UPDATED=true" >> $GITHUB_ENV
+        fi
 
     - name: Push changes
-      run: git push origin dev
+      run: |
+        if [[ "${VERSION_UPDATED}" == "true" ]]; then
+          echo "Pushing version updates to dev branch"
+          git push origin dev
+        else
+          echo "No version changes to push"
+        fi
 
     - name: Create BRAT installation summary
+      if: steps.check_release.outputs.release_exists == 'false'
       run: |
         echo "## 🎉 Beta Release Created Successfully!" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
