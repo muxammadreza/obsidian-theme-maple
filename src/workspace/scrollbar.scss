@@ -93,7 +93,8 @@ body:not(.is-mobile):not(.mod-macos) {
       }
     }
 
-    textarea {
+    // Exclude webview, iframe, and popout window content from textarea styling
+    textarea:not(.workspace-leaf-content[data-type*="webview"] textarea):not(.is-popout-window textarea):not(iframe textarea) {
       color: transparent;
       transition: color var(--animation);
       -webkit-text-fill-color: var(--text-normal);
@@ -113,9 +114,46 @@ body:not(.is-mobile):not(.mod-macos) {
         background-color: transparent !important;
       }
     }
+
+    // Ensure webview and popout window content is not affected by the scrollbar animation
+    .workspace-leaf-content[data-type*="webview"],
+    .is-popout-window .workspace-leaf-content,
+    iframe {
+      textarea, input, select, button {
+        color: var(--text-normal) !important;
+        -webkit-text-fill-color: var(--text-normal) !important;
+      }
+    }
   }
 }
 
 body.scrollbar-hide :not([style="overflow-x: auto;"])::-webkit-scrollbar {
   display: none !important;
+}
+
+// Fix for webview rendering issues in popout windows
+.is-popout-window,
+.workspace-leaf-content[data-type*="webview"],
+.workspace-leaf-content iframe,
+iframe {
+  // Reset any potentially problematic text styling
+  color: var(--text-normal) !important;
+  -webkit-text-fill-color: var(--text-normal) !important;
+  
+  // Ensure all child elements render properly
+  *, *::before, *::after {
+    color: inherit !important;
+    -webkit-text-fill-color: inherit !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  // Force immediate rendering without transitions for webview content
+  textarea, input, select, button, div, span, p, a {
+    color: var(--text-normal) !important;
+    -webkit-text-fill-color: var(--text-normal) !important;
+    transition: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
 }
