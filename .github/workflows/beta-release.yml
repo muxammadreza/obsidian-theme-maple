@@ -26,10 +26,10 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
+        cache: 'pnpm'
 
     - name: Install dependencies
-      run: npm ci
+      run: pnpm install
 
     - name: Get version info
       id: version
@@ -83,8 +83,8 @@ jobs:
         if [[ "${{ steps.version.outputs.current_version }}" != "${{ steps.version.outputs.beta_version }}" ]]; then
           echo "Updating version from ${{ steps.version.outputs.current_version }} to ${{ steps.version.outputs.beta_version }}"
           
-          # Update package.json
-          npm version ${{ steps.version.outputs.beta_version }} --no-git-tag-version
+          # Update package.json using pnpm
+          pnpm version ${{ steps.version.outputs.beta_version }} --no-git-tag-version
           
           # Update manifest.json
           node -e "
@@ -109,7 +109,7 @@ jobs:
         fi
 
     - name: Build theme
-      run: npm run build
+      run: pnpm run build
 
     - name: Create release notes
       id: release_notes
