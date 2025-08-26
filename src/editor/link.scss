@@ -153,3 +153,13 @@ body.link-icon {
 body.link-click-to-edit-in-live-preview :is(.cm-url, .cm-link, .cm-hmd-internal-link) .cm-underline{
   pointer-events: none;
 }
+
+// Ensure webview links are never affected by link editing restrictions
+.workspace-leaf-content[data-type*="webview"] {
+  :is(.cm-url, .cm-link, .cm-hmd-internal-link) .cm-underline,
+  a, a * {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    user-select: auto !important;
+  }
+}

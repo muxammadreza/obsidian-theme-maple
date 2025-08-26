@@ -3563,6 +3563,13 @@ body.link-click-to-edit-in-live-preview :is(.cm-url, .cm-link, .cm-hmd-internal-
   pointer-events: none;
 }
 
+.workspace-leaf-content[data-type*=webview] :is(.cm-url, .cm-link, .cm-hmd-internal-link) .cm-underline,
+.workspace-leaf-content[data-type*=webview] a, .workspace-leaf-content[data-type*=webview] a * {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  user-select: auto !important;
+}
+
 /* #endregion link */
 /* #region list */
 body:is(:not(.css-settings-manager), .list-enable) {
@@ -4665,6 +4672,16 @@ body.image-zoom :is(.markdown-preview-view, .workspace-leaf-content[data-type=im
 }
 body.image-zoom.image-zoom-out :is(.markdown-preview-view, .workspace-leaf-content[data-type=image]) img:not([class*=emoji], .banner-image):active {
   position: fixed;
+}
+body.image-zoom .workspace-leaf-content[data-type*=webview] img {
+  cursor: auto !important;
+}
+body.image-zoom .workspace-leaf-content[data-type*=webview] img:active {
+  position: static !important;
+  z-index: auto !important;
+  transform: none !important;
+  height: auto !important;
+  width: auto !important;
 }
 
 /* #endregion image */
@@ -6181,22 +6198,57 @@ body.scrollbar-hide :not([style="overflow-x: auto;"])::-webkit-scrollbar {
   display: none !important;
 }
 
+.workspace-leaf-content[data-type*=webview] *, .workspace-leaf-content[data-type*=webview] *::before, .workspace-leaf-content[data-type*=webview] *::after,
+.is-popout-window *,
+.is-popout-window *::before,
+.is-popout-window *::after {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  will-change: auto !important;
+}
 .workspace-leaf-content[data-type*=webview] .view-content,
 .is-popout-window .view-content {
+  position: relative !important;
+  z-index: auto !important;
   color: var(--text-normal) !important;
   -webkit-text-fill-color: var(--text-normal) !important;
+  overflow: visible !important;
 }
-.workspace-leaf-content[data-type*=webview] a, .workspace-leaf-content[data-type*=webview] button, .workspace-leaf-content[data-type*=webview] input, .workspace-leaf-content[data-type*=webview] select, .workspace-leaf-content[data-type*=webview] textarea,
+.workspace-leaf-content[data-type*=webview] a, .workspace-leaf-content[data-type*=webview] button, .workspace-leaf-content[data-type*=webview] input, .workspace-leaf-content[data-type*=webview] select, .workspace-leaf-content[data-type*=webview] textarea, .workspace-leaf-content[data-type*=webview] iframe,
 .is-popout-window a,
 .is-popout-window button,
 .is-popout-window input,
 .is-popout-window select,
-.is-popout-window textarea {
+.is-popout-window textarea,
+.is-popout-window iframe {
   color: var(--text-normal) !important;
   -webkit-text-fill-color: var(--text-normal) !important;
   opacity: 1 !important;
   visibility: visible !important;
   cursor: revert !important;
+  pointer-events: auto !important;
+  user-select: auto !important;
+  position: relative !important;
+  z-index: auto !important;
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+.workspace-leaf-content[data-type*=webview] iframe,
+.is-popout-window iframe {
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: auto !important;
+}
+.workspace-leaf-content[data-type*=webview] iframe *,
+.is-popout-window iframe * {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  filter: none !important;
   pointer-events: auto !important;
 }
 
@@ -6299,7 +6351,7 @@ body.tab-title-bar-round.tab-title-bar-shadow .workspace-leaf.mod-active .worksp
 }
 
 /* 切换标签动画，参考 https://github.com/hydescarf/Obsidian-Theme-Mado-Miniflow */
-body.tab-slide-up :is(.workspace-split .workspace-tabs:not(.mod-stacked) .workspace-leaf-content:not([data-type=pdf]) .view-content, .workspace-leaf-content:not(:has(.view-content))) {
+body.tab-slide-up :is(.workspace-split .workspace-tabs:not(.mod-stacked) .workspace-leaf-content:not([data-type=pdf]):not([data-type*=webview]) .view-content, .workspace-leaf-content:not(:has(.view-content)):not([data-type*=webview])) {
   animation: slide-up var(--animation) forwards;
 }
 

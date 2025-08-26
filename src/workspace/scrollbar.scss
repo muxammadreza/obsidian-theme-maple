@@ -124,25 +124,58 @@ body.scrollbar-hide :not([style="overflow-x: auto;"])::-webkit-scrollbar {
   display: none !important;
 }
 
-// Prevent scrollbar animation from affecting webview navigation and functionality
+// Comprehensive webview navigation fix - prevent all theme interference
 .workspace-leaf-content[data-type*="webview"],
 .is-popout-window {
-  // Only reset specific problematic properties, preserve navigation functionality
-  .view-content {
-    // Reset any inherited transparent text effects
-    color: var(--text-normal) !important;
-    -webkit-text-fill-color: var(--text-normal) !important;
+  // Disable ALL animations and transitions that could interfere
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    will-change: auto !important;
   }
   
-  // Ensure links and interactive elements work normally
-  a, button, input, select, textarea {
+  // Reset positioning and z-index issues
+  .view-content {
+    position: relative !important;
+    z-index: auto !important;
     color: var(--text-normal) !important;
     -webkit-text-fill-color: var(--text-normal) !important;
-    // Don't override transitions - they're needed for navigation
+    overflow: visible !important;
+  }
+  
+  // Ensure all interactive elements are fully functional
+  a, button, input, select, textarea, iframe {
+    color: var(--text-normal) !important;
+    -webkit-text-fill-color: var(--text-normal) !important;
     opacity: 1 !important;
     visibility: visible !important;
-    // Preserve cursor and interaction styles
     cursor: revert !important;
     pointer-events: auto !important;
+    user-select: auto !important;
+    position: relative !important;
+    z-index: auto !important;
+    // Disable any conflicting animations
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  
+  // Specifically target iframe content
+  iframe {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: auto !important;
+    
+    // Ensure iframe content is never transformed or filtered
+    * {
+      animation: none !important;
+      transition: none !important;
+      transform: none !important;
+      filter: none !important;
+      pointer-events: auto !important;
+    }
   }
 }

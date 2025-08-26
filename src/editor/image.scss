@@ -63,4 +63,17 @@ body.image-zoom {
   &.image-zoom-out :is(.markdown-preview-view, .workspace-leaf-content[data-type="image"]) img:not([class*="emoji"], .banner-image):active {
     position: fixed;
   }
+  
+  // Disable image zoom for webview content to prevent interference
+  .workspace-leaf-content[data-type*="webview"] img {
+    cursor: auto !important;
+    
+    &:active {
+      position: static !important;
+      z-index: auto !important;
+      transform: none !important;
+      height: auto !important;
+      width: auto !important;
+    }
+  }
 }
