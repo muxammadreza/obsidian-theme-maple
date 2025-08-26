@@ -149,6 +149,22 @@ jobs:
           git commit -m "chore: bump version to v${NEW_VERSION} (${RELEASE_TYPE})"
           git push origin ${{ github.ref_name }}
 
+      - name: Update main branch for BRAT compatibility
+        if: github.ref_name == 'dev'
+        run: |
+          NEW_VERSION="${{ steps.version.outputs.new_version }}"
+          
+          # Switch to main branch and merge the changes for BRAT compatibility
+          git fetch origin main
+          git checkout main
+          git merge origin/dev --no-edit -m "chore: sync beta v${NEW_VERSION} to main for BRAT compatibility"
+          git push origin main
+          
+          # Switch back to dev branch
+          git checkout dev
+          
+          echo "Beta version v${NEW_VERSION} synced to main branch for BRAT compatibility"
+
       - name: Create GitHub Release
         run: |
           NEW_VERSION="${{ steps.version.outputs.new_version }}"
