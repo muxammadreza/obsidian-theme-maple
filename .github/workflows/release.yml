@@ -111,45 +111,23 @@ jobs:
           git commit -m "chore(release): version bump to $NEW_VERSION" || exit 0
           git push
 
-      - name: Create Release
+      - name: Create Release with assets
         if: steps.check_commit.outputs.skip == 'false'
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.version.outputs.version }}
-          release_name: "Maple Theme v${{ steps.version.outputs.version }}"
-          body: |
-            ## 🍁 Maple Theme v${{ steps.version.outputs.version }}
-            
-            **Install:** Download `theme.css` and place it in your Obsidian themes folder.
-            
-            **BRAT:** This theme is BRAT compatible for automatic updates.
-            
-            ### Changes
-            - Various improvements and bug fixes
-            
-          draft: false
-          prerelease: false
+        run: |
+          NEW_VERSION="${{ steps.version.outputs.version }}"
+          
+          # Create release with assets
+          gh release create "$NEW_VERSION" \
+            --title "Maple Theme v$NEW_VERSION" \
+            --notes "## 🍁 Maple Theme v$NEW_VERSION
 
-      - name: Upload theme files
-        if: steps.check_commit.outputs.skip == 'false'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./theme.css
-          asset_name: theme.css
-          asset_content_type: text/css
+          **Install:** Download \`theme.css\` and place it in your Obsidian themes folder.
 
-      - name: Upload manifest
-        if: steps.check_commit.outputs.skip == 'false'
-        uses: actions/upload-release-asset@v1
+          **BRAT:** This theme is BRAT compatible for automatic updates.
+
+          ### Changes
+          - Various improvements and bug fixes" \
+            theme.css \
+            manifest.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./manifest.json
-          asset_name: manifest.json
-          asset_content_type: application/json
