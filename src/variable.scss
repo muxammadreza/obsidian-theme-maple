@@ -31,6 +31,50 @@
   --nav-item-background-hover: var(--background-modifier-hover);
   --nav-item-background-active: var(--accent-active);
   --nav-item-background-selected: var(--frame-outline-color);
+  
+  // Modern Obsidian 1.9.12+ compatibility
+  --color-accent-25: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.25);
+  --color-accent-50: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.5);
+  --color-accent-75: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.75);
+  --color-accent-emphasized: hsl(var(--accent-h), calc(var(--accent-s) + 10%), calc(var(--accent-l) - 10%));
+  
+  // Enhanced form field styling
+  --background-modifier-form-field: var(--background-secondary);
+  --background-modifier-form-field-highlighted: var(--background-modifier-hover);
+  
+  // Better animation easing
+  --anim-motion-smooth: cubic-bezier(0.45, 0, 0.55, 1);
+  --anim-motion-jumpy: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --anim-duration-fast: 150ms;
+  --anim-duration-medium: 300ms;
+  --anim-duration-slow: 600ms;
+  
+  // Enhanced border radius system
+  --radius-xs: 2px;
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-l: 10px;
+  --radius-xl: var(--size-4-3);
+  
+  // Modern shadow system
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-s: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-m: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-l: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  // Enhanced z-index system
+  --layer-menu: 200;
+  --layer-modal: 300;
+  --layer-popover: 400;
+  --layer-tooltip: 500;
+  
+  // Font weight improvements
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 }
 
 html #{utils.with-print('body.obsidian-app')} {

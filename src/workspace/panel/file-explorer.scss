@@ -11,6 +11,10 @@ body {
   --line-height-tight: 1.6;
   --nav-indentation-guide-color: hsla(var(--accent-h), 20%, 50%, 0.2);
   --nav-indentation-guide-width: 1.8px;
+  
+  // Enhanced base file support
+  --base-file-color: var(--color-blue);
+  --base-file-color-hover: var(--color-blue-50);
 }
 
 .theme-light {
@@ -187,3 +191,49 @@ body:has([data-setting="file-color"]) {
     background-color: var(--file-color);
   }
 }
+
+/* #region base files support */
+// Enhanced base file styling
+#{utils.with-no-plugin(".explorer-icon")} {
+  .nav-file-title[data-path$=".base"] {
+    &::before {
+      color: var(--base-file-color);
+      background-color: var(--base-file-color);
+    }
+    
+    &:hover::before {
+      background-color: var(--base-file-color-hover);
+    }
+    
+    // Special indicator for base files
+    &::after {
+      content: "";
+      position: absolute;
+      right: var(--size-2-2);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background-color: var(--base-file-color);
+      border-radius: 50%;
+      opacity: 0.6;
+    }
+  }
+}
+
+// Base file context in tree
+.nav-file[data-path$=".base"] {
+  .nav-file-title {
+    font-weight: var(--font-weight-medium);
+    
+    &:hover {
+      background-color: var(--base-file-color-hover);
+    }
+    
+    &.is-active {
+      background-color: var(--base-file-color);
+      color: var(--text-on-accent);
+    }
+  }
+}
+/* #endregion base files support */

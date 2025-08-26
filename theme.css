@@ -842,6 +842,39 @@ settings:
         default-light: '#'
         default-dark: '#'
     -
+        id: bases-plugin
+        title: Bases Plugin Support
+        title.zh: Bases 插件支持
+        type: heading
+        collapsed: true
+        level: 2
+    -
+        id: bases-enhanced-styling
+        title: Enhanced Bases File Styling
+        description: Improved visual distinction for .base files in file explorer and enhanced table/form styling
+        title.zh: 增强的 Bases 文件样式
+        description.zh: 在文件管理器中更好地区分 .base 文件，并增强表格/表单样式
+        type: class-toggle
+        default: true
+    -
+        id: setting-base-file-color
+        title: Base File Color
+        description: Color for .base files in file explorer
+        title.zh: Base 文件颜色
+        description.zh: 文件管理器中 .base 文件的颜色
+        type: variable-themed-color
+        format: hex
+        default-light: '#0066CC'
+        default-dark: '#4A9EFF'
+    -
+        id: bases-compact-tables
+        title: Compact Table View
+        description: More compact layout for Bases table views
+        title.zh: 紧凑表格视图
+        description.zh: 为 Bases 表格视图提供更紧凑的布局
+        type: class-toggle
+        default: false
+    -
         id: export-pdf
         title: PDF Export
         title.zh: PDF 导出
@@ -2281,6 +2314,36 @@ body.modal-item-animation .style-settings-heading:hover {
   --nav-item-background-hover: var(--background-modifier-hover);
   --nav-item-background-active: var(--accent-active);
   --nav-item-background-selected: var(--frame-outline-color);
+  --color-accent-25: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.25);
+  --color-accent-50: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.5);
+  --color-accent-75: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.75);
+  --color-accent-emphasized: hsl(var(--accent-h), calc(var(--accent-s) + 10%), calc(var(--accent-l) - 10%));
+  --background-modifier-form-field: var(--background-secondary);
+  --background-modifier-form-field-highlighted: var(--background-modifier-hover);
+  --anim-motion-smooth: cubic-bezier(0.45, 0, 0.55, 1);
+  --anim-motion-jumpy: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --anim-duration-fast: 150ms;
+  --anim-duration-medium: 300ms;
+  --anim-duration-slow: 600ms;
+  --radius-xs: 2px;
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-l: 10px;
+  --radius-xl: var(--size-4-3);
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-s: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-m: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-l: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --layer-menu: 200;
+  --layer-modal: 300;
+  --layer-popover: 400;
+  --layer-tooltip: 500;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 }
 
 html :is(body.obsidian-app, body.obsidian-app .print) {
@@ -4743,6 +4806,305 @@ input.metadata-property-key-input,
 }
 
 /* #endregion better-command-palette */
+/* #region bases */
+/* #region bases plugin support */
+.workspace-leaf-content[data-type=base] {
+  background-color: var(--background-primary);
+}
+.workspace-leaf-content[data-type=base] .view-content {
+  background-color: transparent;
+}
+.workspace-leaf-content[data-type=base] .view-header {
+  background-color: var(--background-secondary);
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+body:is(:not(.css-settings-manager), .explorer-icon) .nav-file-title[data-path$=".base"]::before {
+  color: var(--setting-base-file-color, var(--color-blue));
+  background-color: var(--setting-base-file-color, var(--color-blue));
+}
+
+body.bases-enhanced-styling .base-view .base-content {
+  padding: var(--size-4-4);
+}
+body.bases-enhanced-styling .base-view .base-content .base-property {
+  margin-bottom: var(--size-4-2);
+  padding: var(--size-4-2);
+  background-color: var(--background-secondary);
+  border-radius: var(--radius-m);
+  border: 1px solid var(--background-modifier-border);
+  transition: all var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+body.bases-enhanced-styling .base-view .base-content .base-property:hover {
+  background-color: var(--background-modifier-hover);
+  border-color: var(--color-accent-25);
+}
+body.bases-enhanced-styling .base-view .base-content .base-property-label {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-normal);
+  margin-bottom: var(--size-2-2);
+}
+body.bases-enhanced-styling .base-view .base-content .base-property-value {
+  color: var(--text-muted);
+  font-family: var(--font-text);
+}
+body.bases-enhanced-styling .base-view .base-filter {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  padding: var(--size-4-2);
+  margin-bottom: var(--size-4-4);
+}
+body.bases-enhanced-styling .base-view .base-filter .base-filter-input {
+  background-color: transparent;
+  border: none;
+  color: var(--text-normal);
+}
+body.bases-enhanced-styling .base-view .base-filter .base-filter-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent-25);
+}
+body.bases-enhanced-styling .base-view .base-table {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  box-shadow: var(--shadow-s);
+}
+body.bases-enhanced-styling .base-view .base-table .base-table-header {
+  background-color: var(--background-secondary);
+  padding: var(--size-4-2);
+  font-weight: var(--font-weight-semibold);
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+body.bases-enhanced-styling .base-view .base-table .base-table-row {
+  padding: var(--size-4-2);
+  border-bottom: 1px solid var(--background-modifier-border-weak);
+  transition: background-color var(--anim-duration-fast) ease;
+}
+body.bases-enhanced-styling .base-view .base-table .base-table-row:hover {
+  background-color: var(--background-modifier-hover);
+}
+body.bases-enhanced-styling .base-view .base-table .base-table-row:last-child {
+  border-bottom: none;
+}
+body.bases-enhanced-styling .base-view .base-table .base-table-cell {
+  padding: var(--size-2-2) var(--size-4-2);
+  color: var(--text-normal);
+}
+body.bases-enhanced-styling .base-view .base-table .base-table-cell.base-cell-number {
+  font-family: var(--font-monospace);
+  text-align: right;
+}
+body.bases-enhanced-styling .base-view .base-table .base-table-cell.base-cell-date {
+  font-family: var(--font-monospace);
+  color: var(--text-muted);
+}
+body.bases-enhanced-styling .base-view .base-table .base-table-cell.base-cell-boolean {
+  text-align: center;
+}
+body.bases-enhanced-styling .base-view .base-table .base-table-cell.base-cell-boolean .base-checkbox {
+  accent-color: var(--color-accent);
+}
+
+body.bases-compact-tables .base-table .base-table-header {
+  padding: var(--size-2-3);
+  font-size: var(--font-smaller);
+}
+body.bases-compact-tables .base-table .base-table-row {
+  padding: var(--size-2-3);
+}
+body.bases-compact-tables .base-table .base-table-cell {
+  padding: var(--size-2-1) var(--size-2-3);
+  font-size: var(--font-smaller);
+}
+
+.base-property-type.property-text .base-input {
+  background-color: transparent;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-s);
+  padding: var(--size-2-2) var(--size-4-2);
+  color: var(--text-normal);
+}
+.base-property-type.property-text .base-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-25);
+}
+.base-property-type.property-number .base-input {
+  font-family: var(--font-monospace);
+  text-align: right;
+}
+.base-property-type.property-date .base-date-picker {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  padding: var(--size-4-2);
+}
+.base-property-type.property-select .base-select {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-s);
+  padding: var(--size-2-2) var(--size-4-2);
+  color: var(--text-normal);
+}
+.base-property-type.property-multiselect .base-tag {
+  background-color: var(--color-accent-25);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-s);
+  padding: var(--size-2-1) var(--size-2-3);
+  margin: var(--size-2-1);
+  color: var(--color-accent);
+  font-size: var(--font-smaller);
+}
+
+/* #endregion bases plugin support */
+/* #region modern obsidian features */
+.metadata-container .metadata-property {
+  border-radius: var(--radius-m);
+  padding: var(--size-2-2);
+  margin-bottom: var(--size-2-2);
+  background-color: var(--background-secondary);
+}
+.metadata-container .metadata-property:hover {
+  background-color: var(--background-modifier-hover);
+}
+.metadata-container .metadata-property .metadata-property-key {
+  color: var(--text-accent);
+  font-weight: var(--font-weight-medium);
+}
+.metadata-container .metadata-property .metadata-property-value {
+  color: var(--text-normal);
+}
+.metadata-container .metadata-property .metadata-property-value.metadata-property-value-boolean .checkbox-container {
+  accent-color: var(--color-accent);
+}
+
+.cm-line .cm-meta.cm-property {
+  background-color: var(--background-modifier-form-field);
+  border-radius: var(--radius-s);
+  padding: var(--size-2-1) var(--size-2-2);
+}
+.cm-line .cm-meta.cm-property .cm-property-key {
+  color: var(--text-accent);
+  font-weight: var(--font-weight-medium);
+}
+.cm-line .cm-meta.cm-property .cm-property-value {
+  color: var(--text-normal);
+}
+
+.canvas-wrapper .canvas-node {
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-s);
+}
+.canvas-wrapper .canvas-node.is-focused {
+  box-shadow: 0 0 0 2px var(--color-accent), var(--shadow-s);
+}
+.canvas-wrapper .canvas-node .canvas-node-content .markdown-rendered {
+  background-color: transparent;
+}
+.canvas-wrapper .canvas-edge {
+  stroke: var(--color-accent);
+  stroke-width: 2px;
+}
+.canvas-wrapper .canvas-edge.is-focused {
+  stroke: var(--color-accent-emphasized);
+  stroke-width: 3px;
+}
+
+.search-input-container {
+  background-color: var(--background-modifier-form-field);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+}
+.search-input-container:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-25);
+}
+.search-input-container .search-input {
+  background-color: transparent;
+  border: none;
+  color: var(--text-normal);
+}
+.search-input-container .search-input::placeholder {
+  color: var(--text-faint);
+}
+
+.workspace-tab-header {
+  border-radius: var(--radius-m) var(--radius-m) 0 0;
+}
+.workspace-tab-header.is-active {
+  background-color: var(--background-primary);
+  border-bottom: 2px solid var(--color-accent);
+}
+.workspace-tab-header .workspace-tab-header-inner {
+  padding: var(--size-4-2) var(--size-4-4);
+}
+.workspace-tab-header .workspace-tab-header-inner .workspace-tab-header-inner-icon {
+  opacity: 0.7;
+  transition: opacity var(--anim-duration-fast) ease;
+}
+.workspace-tab-header .workspace-tab-header-inner .workspace-tab-header-inner-title {
+  font-weight: var(--font-weight-medium);
+}
+.workspace-tab-header:hover .workspace-tab-header-inner-icon {
+  opacity: 1;
+}
+
+.status-bar {
+  background-color: var(--background-secondary);
+  border-top: 1px solid var(--background-modifier-border);
+}
+.status-bar .status-bar-item {
+  border-radius: var(--radius-s);
+  transition: background-color var(--anim-duration-fast) ease;
+}
+.status-bar .status-bar-item:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+/* #endregion modern obsidian features */
+/* #region accessibility improvements */
+.clickable-icon:focus-visible,
+.nav-file-title:focus-visible,
+.nav-folder-title:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-s);
+}
+
+@media (prefers-contrast: high) {
+  .theme-light,
+  .theme-dark {
+    --background-modifier-border: var(--color-base-70);
+    --text-muted: var(--text-normal);
+    --icon-opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* #endregion accessibility improvements */
+/* #region performance optimizations */
+.workspace-leaf-content,
+.modal-container,
+.menu {
+  will-change: transform;
+}
+
+.progress-bar,
+.search-result-container,
+.suggestion-container {
+  contain: layout style paint;
+}
+
+/* #endregion performance optimizations */
+/* #endregion bases */
 /* #region calender */
 body.calendar-swap-year-month #calendar-container .nav {
   padding-left: var(--size-4-1);
@@ -6236,6 +6598,12 @@ body:is(:not(.css-settings-manager), .explorer-icon) .nav-file-title:is([data-pa
 
 body:is(:not(.css-settings-manager), .explorer-icon) .nav-file-title:is([data-path$=base])::before {
   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>');
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>');
+}
+
+body:is(:not(.css-settings-manager), .explorer-icon) .nav-file-title:is([data-path$=db], [data-path$=database])::before {
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>');
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>');
 }
 
 body:is(:not(.css-settings-manager), .explorer-icon) .nav-file-title:is([data-path$=pdf])::before {
@@ -6761,6 +7129,8 @@ body {
   --line-height-tight: 1.6;
   --nav-indentation-guide-color: hsla(var(--accent-h), 20%, 50%, 0.2);
   --nav-indentation-guide-width: 1.8px;
+  --base-file-color: var(--color-blue);
+  --base-file-color-hover: var(--color-blue-50);
 }
 
 .theme-light {
@@ -6900,6 +7270,39 @@ body:has([data-setting=file-color]) body:is(:not(.css-settings-manager), .explor
   background-color: var(--file-color);
 }
 
+/* #region base files support */
+body:is(:not(.css-settings-manager), .explorer-icon) .nav-file-title[data-path$=".base"]::before {
+  color: var(--base-file-color);
+  background-color: var(--base-file-color);
+}
+body:is(:not(.css-settings-manager), .explorer-icon) .nav-file-title[data-path$=".base"]:hover::before {
+  background-color: var(--base-file-color-hover);
+}
+body:is(:not(.css-settings-manager), .explorer-icon) .nav-file-title[data-path$=".base"]::after {
+  content: "";
+  position: absolute;
+  right: var(--size-2-2);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: var(--base-file-color);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.nav-file[data-path$=".base"] .nav-file-title {
+  font-weight: var(--font-weight-medium);
+}
+.nav-file[data-path$=".base"] .nav-file-title:hover {
+  background-color: var(--base-file-color-hover);
+}
+.nav-file[data-path$=".base"] .nav-file-title.is-active {
+  background-color: var(--base-file-color);
+  color: var(--text-on-accent);
+}
+
+/* #endregion base files support */
 /* #endregion file-explorer */
 /* #endregion [[panel]] */
 /* #endregion [workspace] */

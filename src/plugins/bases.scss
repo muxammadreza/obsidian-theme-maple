@@ -1,0 +1,400 @@
+@use '../utils';
+
+/* #region bases plugin support */
+
+// Base view containers
+.workspace-leaf-content[data-type="base"] {
+  background-color: var(--background-primary);
+  
+  .view-content {
+    background-color: transparent;
+  }
+  
+  .view-header {
+    background-color: var(--background-secondary);
+    border-bottom: 1px solid var(--background-modifier-border);
+  }
+}
+
+// Base file icons in file explorer
+#{utils.with-no-plugin(".explorer-icon")} {
+  .nav-file-title[data-path$=".base"]::before {
+    color: var(--setting-base-file-color, var(--color-blue));
+    background-color: var(--setting-base-file-color, var(--color-blue));
+  }
+}
+
+// Enhanced bases styling when enabled
+body.bases-enhanced-styling {
+  .base-view {
+    .base-content {
+      padding: var(--size-4-4);
+      
+      .base-property {
+        margin-bottom: var(--size-4-2);
+        padding: var(--size-4-2);
+        background-color: var(--background-secondary);
+        border-radius: var(--radius-m);
+        border: 1px solid var(--background-modifier-border);
+        transition: all var(--anim-duration-fast) var(--anim-motion-smooth);
+        
+        &:hover {
+          background-color: var(--background-modifier-hover);
+          border-color: var(--color-accent-25);
+        }
+      }
+      
+      .base-property-label {
+        font-weight: var(--font-weight-semibold);
+        color: var(--text-normal);
+        margin-bottom: var(--size-2-2);
+      }
+      
+      .base-property-value {
+        color: var(--text-muted);
+        font-family: var(--font-text);
+      }
+    }
+    
+    .base-filter {
+      background-color: var(--background-secondary);
+      border: 1px solid var(--background-modifier-border);
+      border-radius: var(--radius-m);
+      padding: var(--size-4-2);
+      margin-bottom: var(--size-4-4);
+      
+      .base-filter-input {
+        background-color: transparent;
+        border: none;
+        color: var(--text-normal);
+        
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 2px var(--color-accent-25);
+        }
+      }
+    }
+    
+    .base-table {
+      border: 1px solid var(--background-modifier-border);
+      border-radius: var(--radius-m);
+      overflow: hidden;
+      box-shadow: var(--shadow-s);
+      
+      .base-table-header {
+        background-color: var(--background-secondary);
+        padding: var(--size-4-2);
+        font-weight: var(--font-weight-semibold);
+        border-bottom: 1px solid var(--background-modifier-border);
+      }
+      
+      .base-table-row {
+        padding: var(--size-4-2);
+        border-bottom: 1px solid var(--background-modifier-border-weak);
+        transition: background-color var(--anim-duration-fast) ease;
+        
+        &:hover {
+          background-color: var(--background-modifier-hover);
+        }
+        
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+      
+      .base-table-cell {
+        padding: var(--size-2-2) var(--size-4-2);
+        color: var(--text-normal);
+        
+        &.base-cell-number {
+          font-family: var(--font-monospace);
+          text-align: right;
+        }
+        
+        &.base-cell-date {
+          font-family: var(--font-monospace);
+          color: var(--text-muted);
+        }
+        
+        &.base-cell-boolean {
+          text-align: center;
+          
+          .base-checkbox {
+            accent-color: var(--color-accent);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Compact table styling when enabled
+body.bases-compact-tables {
+  .base-table {
+    .base-table-header {
+      padding: var(--size-2-3);
+      font-size: var(--font-smaller);
+    }
+    
+    .base-table-row {
+      padding: var(--size-2-3);
+    }
+    
+    .base-table-cell {
+      padding: var(--size-2-1) var(--size-2-3);
+      font-size: var(--font-smaller);
+    }
+  }
+}
+
+// Base property types styling
+.base-property-type {
+  &.property-text {
+    .base-input {
+      background-color: transparent;
+      border: 1px solid var(--background-modifier-border);
+      border-radius: var(--radius-s);
+      padding: var(--size-2-2) var(--size-4-2);
+      color: var(--text-normal);
+      
+      &:focus {
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 2px var(--color-accent-25);
+      }
+    }
+  }
+  
+  &.property-number {
+    .base-input {
+      font-family: var(--font-monospace);
+      text-align: right;
+    }
+  }
+  
+  &.property-date {
+    .base-date-picker {
+      background-color: var(--background-secondary);
+      border: 1px solid var(--background-modifier-border);
+      border-radius: var(--radius-m);
+      padding: var(--size-4-2);
+    }
+  }
+  
+  &.property-select {
+    .base-select {
+      background-color: var(--background-secondary);
+      border: 1px solid var(--background-modifier-border);
+      border-radius: var(--radius-s);
+      padding: var(--size-2-2) var(--size-4-2);
+      color: var(--text-normal);
+    }
+  }
+  
+  &.property-multiselect {
+    .base-tag {
+      background-color: var(--color-accent-25);
+      border: 1px solid var(--color-accent);
+      border-radius: var(--radius-s);
+      padding: var(--size-2-1) var(--size-2-3);
+      margin: var(--size-2-1);
+      color: var(--color-accent);
+      font-size: var(--font-smaller);
+    }
+  }
+}
+
+/* #endregion bases plugin support */
+
+/* #region modern obsidian features */
+
+// Properties view improvements (Obsidian 1.4+)
+.metadata-container {
+  .metadata-property {
+    border-radius: var(--radius-m);
+    padding: var(--size-2-2);
+    margin-bottom: var(--size-2-2);
+    background-color: var(--background-secondary);
+    
+    &:hover {
+      background-color: var(--background-modifier-hover);
+    }
+    
+    .metadata-property-key {
+      color: var(--text-accent);
+      font-weight: var(--font-weight-medium);
+    }
+    
+    .metadata-property-value {
+      color: var(--text-normal);
+      
+      &.metadata-property-value-boolean {
+        .checkbox-container {
+          accent-color: var(--color-accent);
+        }
+      }
+    }
+  }
+}
+
+// Enhanced inline properties styling
+.cm-line .cm-meta.cm-property {
+  background-color: var(--background-modifier-form-field);
+  border-radius: var(--radius-s);
+  padding: var(--size-2-1) var(--size-2-2);
+  
+  .cm-property-key {
+    color: var(--text-accent);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .cm-property-value {
+    color: var(--text-normal);
+  }
+}
+
+// Canvas improvements for modern Obsidian
+.canvas-wrapper {
+  .canvas-node {
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-s);
+    
+    &.is-focused {
+      box-shadow: 0 0 0 2px var(--color-accent), var(--shadow-s);
+    }
+    
+    .canvas-node-content {
+      .markdown-rendered {
+        background-color: transparent;
+      }
+    }
+  }
+  
+  .canvas-edge {
+    stroke: var(--color-accent);
+    stroke-width: 2px;
+    
+    &.is-focused {
+      stroke: var(--color-accent-emphasized);
+      stroke-width: 3px;
+    }
+  }
+}
+
+// Enhanced search improvements
+.search-input-container {
+  background-color: var(--background-modifier-form-field);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  
+  &:focus-within {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px var(--color-accent-25);
+  }
+  
+  .search-input {
+    background-color: transparent;
+    border: none;
+    color: var(--text-normal);
+    
+    &::placeholder {
+      color: var(--text-faint);
+    }
+  }
+}
+
+// Modern tab styling
+.workspace-tab-header {
+  border-radius: var(--radius-m) var(--radius-m) 0 0;
+  
+  &.is-active {
+    background-color: var(--background-primary);
+    border-bottom: 2px solid var(--color-accent);
+  }
+  
+  .workspace-tab-header-inner {
+    padding: var(--size-4-2) var(--size-4-4);
+    
+    .workspace-tab-header-inner-icon {
+      opacity: 0.7;
+      transition: opacity var(--anim-duration-fast) ease;
+    }
+    
+    .workspace-tab-header-inner-title {
+      font-weight: var(--font-weight-medium);
+    }
+  }
+  
+  &:hover .workspace-tab-header-inner-icon {
+    opacity: 1;
+  }
+}
+
+// Enhanced status bar
+.status-bar {
+  background-color: var(--background-secondary);
+  border-top: 1px solid var(--background-modifier-border);
+  
+  .status-bar-item {
+    border-radius: var(--radius-s);
+    transition: background-color var(--anim-duration-fast) ease;
+    
+    &:hover {
+      background-color: var(--background-modifier-hover);
+    }
+  }
+}
+
+/* #endregion modern obsidian features */
+
+/* #region accessibility improvements */
+
+// Enhanced focus indicators
+.clickable-icon:focus-visible,
+.nav-file-title:focus-visible,
+.nav-folder-title:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-s);
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .theme-light,
+  .theme-dark {
+    --background-modifier-border: var(--color-base-70);
+    --text-muted: var(--text-normal);
+    --icon-opacity: 1;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* #endregion accessibility improvements */
+
+/* #region performance optimizations */
+
+// Use transform for animations instead of changing layout properties
+.workspace-leaf-content,
+.modal-container,
+.menu {
+  will-change: transform;
+}
+
+// Optimize repaints for frequently changing elements
+.progress-bar,
+.search-result-container,
+.suggestion-container {
+  contain: layout style paint;
+}
+
+/* #endregion performance optimizations */

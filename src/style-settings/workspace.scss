@@ -508,6 +508,39 @@ settings:
         default-light: '#'
         default-dark: '#'
     -
+        id: bases-plugin
+        title: Bases Plugin Support
+        title.zh: Bases 插件支持
+        type: heading
+        collapsed: true
+        level: 2
+    -
+        id: bases-enhanced-styling
+        title: Enhanced Bases File Styling
+        description: Improved visual distinction for .base files in file explorer and enhanced table/form styling
+        title.zh: 增强的 Bases 文件样式
+        description.zh: 在文件管理器中更好地区分 .base 文件，并增强表格/表单样式
+        type: class-toggle
+        default: true
+    -
+        id: setting-base-file-color
+        title: Base File Color
+        description: Color for .base files in file explorer
+        title.zh: Base 文件颜色
+        description.zh: 文件管理器中 .base 文件的颜色
+        type: variable-themed-color
+        format: hex
+        default-light: '#0066CC'
+        default-dark: '#4A9EFF'
+    -
+        id: bases-compact-tables
+        title: Compact Table View
+        description: More compact layout for Bases table views
+        title.zh: 紧凑表格视图
+        description.zh: 为 Bases 表格视图提供更紧凑的布局
+        type: class-toggle
+        default: false
+    -
         id: export-pdf
         title: PDF Export
         title.zh: PDF 导出
