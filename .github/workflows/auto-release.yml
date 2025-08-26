@@ -154,6 +154,9 @@ jobs:
         run: |
           NEW_VERSION="${{ steps.version.outputs.new_version }}"
           
+          # Clean up temporary files first
+          rm -f release_notes.md
+          
           # Switch to main branch and merge the changes for BRAT compatibility
           git fetch origin main
           git checkout main
