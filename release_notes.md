@@ -1,4 +1,4 @@
-# 🧪 Maple Theme Beta Release - v0.8.35-beta.2
+# 🧪 Maple Theme Beta Release - v0.8.35-beta.3
 
 > **⚠️ This is a BETA release** - Use for testing purposes. Report issues on GitHub.
 
@@ -47,6 +47,8 @@ Please test with:
 
 Recent commits included in this beta:
 ```
+42acdfa fix: ensure GitHub releases target correct commit SHA
+9c49d15 chore: bump version to 0.8.35-beta.2
 54e6d59 fix: resolve workflow version conflict and duplicate release issues
 0b0a744 feat: setup automated beta release workflow with BRAT compatibility
 8c6936a feat: Merge upstream v0.8.34 + Obsidian 1.9.12 compatibility + Bases plugin support
@@ -60,6 +62,4 @@ aa320b0 rename and simplify
 b58425b chore: release v0.8.32
 2cfd8f3 support indicator style of active line
 3e5c115 chore: release v0.8.31
-3a573d9 support full line indicator
-cbf0194 chore: release v0.8.30
 ```
