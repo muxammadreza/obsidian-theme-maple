@@ -1,5 +1,5 @@
 $base-panel: '.vertical-tab-header', '.vertical-tab-content',
-  '.nav-files-container', '.workspace-leaf-content:not([data-type*="graph"],[data-type*="pdf"]) .view-content', '.search-result-container',
+  '.nav-files-container', '.workspace-leaf-content:not([data-type*="graph"],[data-type*="pdf"],[data-type*="webview"]) .view-content', '.search-result-container',
   '.git-view-body', '.suggestion-container .suggestion', '.prompt-results',
   '.community-modal-search-results-wrapper', '.community-modal-info',
   '.modal:not(.mod-settings, .mod-community-theme, .mod-community-plugin)',
@@ -124,24 +124,25 @@ body.scrollbar-hide :not([style="overflow-x: auto;"])::-webkit-scrollbar {
   display: none !important;
 }
 
-// Simple and effective webview fix - disable problematic animations entirely for webview content
+// Prevent scrollbar animation from affecting webview navigation and functionality
 .workspace-leaf-content[data-type*="webview"],
 .is-popout-window {
-  // Completely override scrollbar animation effects for webview content
-  * {
+  // Only reset specific problematic properties, preserve navigation functionality
+  .view-content {
+    // Reset any inherited transparent text effects
     color: var(--text-normal) !important;
     -webkit-text-fill-color: var(--text-normal) !important;
-    transition: none !important;
-    opacity: 1 !important;
-    visibility: visible !important;
   }
   
-  // Ensure iframe content is never affected by theme animations
-  iframe, iframe * {
+  // Ensure links and interactive elements work normally
+  a, button, input, select, textarea {
     color: var(--text-normal) !important;
     -webkit-text-fill-color: var(--text-normal) !important;
-    transition: none !important;
+    // Don't override transitions - they're needed for navigation
     opacity: 1 !important;
     visibility: visible !important;
+    // Preserve cursor and interaction styles
+    cursor: revert !important;
+    pointer-events: auto !important;
   }
 }

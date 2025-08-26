@@ -6153,10 +6153,10 @@ body:not(.is-mobile):not(.mod-macos) ::-webkit-scrollbar-thumb:active {
 body:not(.is-mobile):not(.mod-macos):not(.scrollbar-movein-animation-enable) {
   --scrollbar-color: hsla(var(--color-accent-hsl), 24%);
 }
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable :is(.vertical-tab-header, .vertical-tab-content, .nav-files-container, .workspace-leaf-content:not([data-type*=graph], [data-type*=pdf]) .view-content, .search-result-container, .git-view-body, .suggestion-container .suggestion, .prompt-results, .community-modal-search-results-wrapper, .community-modal-info, .modal:not(.mod-settings, .mod-community-theme, .mod-community-plugin), .tag-container, .backlink-pane, .markdown-source-view .cm-scroller, .markdown-preview-view, .workspace .mod-root .workspace-tabs.mod-stacked .workspace-tab-container, .markdown-embed-content .markdown-rendered, pre code, .workspace-leaf-content[data-type=calendar] .view-content, .janitor-scan-results, .excalidraw-wrapper :is(.App-menu .Stack .Island.App-menu__left, .scrollbar), .excalidraw-contextMenuContainer .popover, .kanban-plugin__board, .kanban-plugin__lane-items, .kanban-plugin__autocomplete) {
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable :is(.vertical-tab-header, .vertical-tab-content, .nav-files-container, .workspace-leaf-content:not([data-type*=graph], [data-type*=pdf], [data-type*=webview]) .view-content, .search-result-container, .git-view-body, .suggestion-container .suggestion, .prompt-results, .community-modal-search-results-wrapper, .community-modal-info, .modal:not(.mod-settings, .mod-community-theme, .mod-community-plugin), .tag-container, .backlink-pane, .markdown-source-view .cm-scroller, .markdown-preview-view, .workspace .mod-root .workspace-tabs.mod-stacked .workspace-tab-container, .markdown-embed-content .markdown-rendered, pre code, .workspace-leaf-content[data-type=calendar] .view-content, .janitor-scan-results, .excalidraw-wrapper :is(.App-menu .Stack .Island.App-menu__left, .scrollbar), .excalidraw-contextMenuContainer .popover, .kanban-plugin__board, .kanban-plugin__lane-items, .kanban-plugin__autocomplete) {
   transition: --scrollbar-color var(--animation);
 }
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable :is(.vertical-tab-header, .vertical-tab-content, .nav-files-container, .workspace-leaf-content:not([data-type*=graph], [data-type*=pdf]) .view-content, .search-result-container, .git-view-body, .suggestion-container .suggestion, .prompt-results, .community-modal-search-results-wrapper, .community-modal-info, .modal:not(.mod-settings, .mod-community-theme, .mod-community-plugin), .tag-container, .backlink-pane, .markdown-source-view .cm-scroller, .markdown-preview-view, .workspace .mod-root .workspace-tabs.mod-stacked .workspace-tab-container, .markdown-embed-content .markdown-rendered, pre code, .workspace-leaf-content[data-type=calendar] .view-content, .janitor-scan-results, .excalidraw-wrapper :is(.App-menu .Stack .Island.App-menu__left, .scrollbar), .excalidraw-contextMenuContainer .popover, .kanban-plugin__board, .kanban-plugin__lane-items, .kanban-plugin__autocomplete):hover {
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable :is(.vertical-tab-header, .vertical-tab-content, .nav-files-container, .workspace-leaf-content:not([data-type*=graph], [data-type*=pdf], [data-type*=webview]) .view-content, .search-result-container, .git-view-body, .suggestion-container .suggestion, .prompt-results, .community-modal-search-results-wrapper, .community-modal-info, .modal:not(.mod-settings, .mod-community-theme, .mod-community-plugin), .tag-container, .backlink-pane, .markdown-source-view .cm-scroller, .markdown-preview-view, .workspace .mod-root .workspace-tabs.mod-stacked .workspace-tab-container, .markdown-embed-content .markdown-rendered, pre code, .workspace-leaf-content[data-type=calendar] .view-content, .janitor-scan-results, .excalidraw-wrapper :is(.App-menu .Stack .Island.App-menu__left, .scrollbar), .excalidraw-contextMenuContainer .popover, .kanban-plugin__board, .kanban-plugin__lane-items, .kanban-plugin__autocomplete):hover {
   --scrollbar-color: hsla(var(--color-accent-hsl), 24%);
 }
 body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] *):not(.is-popout-window *):not(iframe *) {
@@ -6181,22 +6181,23 @@ body.scrollbar-hide :not([style="overflow-x: auto;"])::-webkit-scrollbar {
   display: none !important;
 }
 
-.workspace-leaf-content[data-type*=webview] *,
-.is-popout-window * {
+.workspace-leaf-content[data-type*=webview] .view-content,
+.is-popout-window .view-content {
   color: var(--text-normal) !important;
   -webkit-text-fill-color: var(--text-normal) !important;
-  transition: none !important;
-  opacity: 1 !important;
-  visibility: visible !important;
 }
-.workspace-leaf-content[data-type*=webview] iframe, .workspace-leaf-content[data-type*=webview] iframe *,
-.is-popout-window iframe,
-.is-popout-window iframe * {
+.workspace-leaf-content[data-type*=webview] a, .workspace-leaf-content[data-type*=webview] button, .workspace-leaf-content[data-type*=webview] input, .workspace-leaf-content[data-type*=webview] select, .workspace-leaf-content[data-type*=webview] textarea,
+.is-popout-window a,
+.is-popout-window button,
+.is-popout-window input,
+.is-popout-window select,
+.is-popout-window textarea {
   color: var(--text-normal) !important;
   -webkit-text-fill-color: var(--text-normal) !important;
-  transition: none !important;
   opacity: 1 !important;
   visibility: visible !important;
+  cursor: revert !important;
+  pointer-events: auto !important;
 }
 
 /* #endregion scrollbar */
