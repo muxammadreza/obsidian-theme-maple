@@ -1,4 +1,4 @@
-# 🧪 Maple Theme Beta Release - v0.8.35-beta.3
+# 🧪 Maple Theme Beta Release - v0.8.35-beta.4
 
 > **⚠️ This is a BETA release** - Use for testing purposes. Report issues on GitHub.
 
@@ -47,6 +47,8 @@ Please test with:
 
 Recent commits included in this beta:
 ```
+affb517 docs: add migrated settings for user compatibility
+6f4dec7 chore: bump version to 0.8.35-beta.3
 42acdfa fix: ensure GitHub releases target correct commit SHA
 9c49d15 chore: bump version to 0.8.35-beta.2
 54e6d59 fix: resolve workflow version conflict and duplicate release issues
@@ -60,6 +62,4 @@ f2a519f chore: release v0.8.33
 aa320b0 rename and simplify
 77d8b35 feat: Add comprehensive file explorer icon customization system
 b58425b chore: release v0.8.32
-2cfd8f3 support indicator style of active line
-3e5c115 chore: release v0.8.31
 ```
