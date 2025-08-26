@@ -132,6 +132,7 @@ body.scrollbar-hide :not([style="overflow-x: auto;"])::-webkit-scrollbar {
 }
 
 // Fix for webview rendering issues in popout windows
+// Updated for better BRAT compatibility and link navigation
 .is-popout-window .workspace-leaf-content,
 .workspace-leaf-content[data-type*="webview"] {
   // Reset any potentially problematic text styling for content area only
