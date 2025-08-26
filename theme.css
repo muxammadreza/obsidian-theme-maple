@@ -6159,26 +6159,92 @@ body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable :is(.vert
 body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable :is(.vertical-tab-header, .vertical-tab-content, .nav-files-container, .workspace-leaf-content:not([data-type*=graph], [data-type*=pdf]) .view-content, .search-result-container, .git-view-body, .suggestion-container .suggestion, .prompt-results, .community-modal-search-results-wrapper, .community-modal-info, .modal:not(.mod-settings, .mod-community-theme, .mod-community-plugin), .tag-container, .backlink-pane, .markdown-source-view .cm-scroller, .markdown-preview-view, .workspace .mod-root .workspace-tabs.mod-stacked .workspace-tab-container, .markdown-embed-content .markdown-rendered, pre code, .workspace-leaf-content[data-type=calendar] .view-content, .janitor-scan-results, .excalidraw-wrapper :is(.App-menu .Stack .Island.App-menu__left, .scrollbar), .excalidraw-contextMenuContainer .popover, .kanban-plugin__board, .kanban-plugin__lane-items, .kanban-plugin__autocomplete):hover {
   --scrollbar-color: hsla(var(--color-accent-hsl), 24%);
 }
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea {
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] textarea):not(.is-popout-window textarea):not(iframe textarea) {
   color: transparent;
   transition: color var(--animation);
   -webkit-text-fill-color: var(--text-normal);
 }
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:hover {
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] textarea):not(.is-popout-window textarea):not(iframe textarea):hover {
   color: hsla(var(--color-accent-hsl), 24%);
 }
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea * {
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] textarea):not(.is-popout-window textarea):not(iframe textarea) * {
   -webkit-text-fill-color: initial;
 }
-body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea::-webkit-scrollbar-thumb {
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable textarea:not(.workspace-leaf-content[data-type*=webview] textarea):not(.is-popout-window textarea):not(iframe textarea)::-webkit-scrollbar-thumb {
   box-shadow: 0 0 0 10px inset;
   border-width: 3.2px;
   background-clip: content-box;
   background-color: transparent !important;
 }
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .workspace-leaf-content[data-type*=webview] textarea, body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .workspace-leaf-content[data-type*=webview] input, body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .workspace-leaf-content[data-type*=webview] select, body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .workspace-leaf-content[data-type*=webview] button,
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .is-popout-window .workspace-leaf-content textarea,
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .is-popout-window .workspace-leaf-content input,
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .is-popout-window .workspace-leaf-content select,
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable .is-popout-window .workspace-leaf-content button,
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable iframe textarea,
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable iframe input,
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable iframe select,
+body:not(.is-mobile):not(.mod-macos).scrollbar-movein-animation-enable iframe button {
+  color: var(--text-normal) !important;
+  -webkit-text-fill-color: var(--text-normal) !important;
+}
 
 body.scrollbar-hide :not([style="overflow-x: auto;"])::-webkit-scrollbar {
   display: none !important;
+}
+
+.is-popout-window,
+.workspace-leaf-content[data-type*=webview],
+.workspace-leaf-content iframe,
+iframe {
+  color: var(--text-normal) !important;
+  -webkit-text-fill-color: var(--text-normal) !important;
+}
+.is-popout-window *, .is-popout-window *::before, .is-popout-window *::after,
+.workspace-leaf-content[data-type*=webview] *,
+.workspace-leaf-content[data-type*=webview] *::before,
+.workspace-leaf-content[data-type*=webview] *::after,
+.workspace-leaf-content iframe *,
+.workspace-leaf-content iframe *::before,
+.workspace-leaf-content iframe *::after,
+iframe *,
+iframe *::before,
+iframe *::after {
+  color: inherit !important;
+  -webkit-text-fill-color: inherit !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.is-popout-window textarea, .is-popout-window input, .is-popout-window select, .is-popout-window button, .is-popout-window div, .is-popout-window span, .is-popout-window p, .is-popout-window a,
+.workspace-leaf-content[data-type*=webview] textarea,
+.workspace-leaf-content[data-type*=webview] input,
+.workspace-leaf-content[data-type*=webview] select,
+.workspace-leaf-content[data-type*=webview] button,
+.workspace-leaf-content[data-type*=webview] div,
+.workspace-leaf-content[data-type*=webview] span,
+.workspace-leaf-content[data-type*=webview] p,
+.workspace-leaf-content[data-type*=webview] a,
+.workspace-leaf-content iframe textarea,
+.workspace-leaf-content iframe input,
+.workspace-leaf-content iframe select,
+.workspace-leaf-content iframe button,
+.workspace-leaf-content iframe div,
+.workspace-leaf-content iframe span,
+.workspace-leaf-content iframe p,
+.workspace-leaf-content iframe a,
+iframe textarea,
+iframe input,
+iframe select,
+iframe button,
+iframe div,
+iframe span,
+iframe p,
+iframe a {
+  color: var(--text-normal) !important;
+  -webkit-text-fill-color: var(--text-normal) !important;
+  transition: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* #endregion scrollbar */
